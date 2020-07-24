@@ -1,6 +1,6 @@
 <template>
   <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1">
-    <router-link  :to="'/ArticleDetail/'+'1'">
+    <router-link v-for="article in articleList" :key="article.id"  :to="'/ArticleDetail/'+article.id">
       <div class="article art-card art-card-bordered">
         <div class="art-body">
           <div class="art-row">
@@ -13,49 +13,7 @@
             </el-col>
             <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="1">
               <div class="live-info">
-                <div class="live-title">MQ(消息队列)常见的应用场景解析</div>
-                <div
-                  class="live-desc"
-                >MQ(消MQ(消MQ(消息MQ()常见的应用场景解析MQ(消息队列)常见的应用场景解析MQ(消息队列)(消息队列)())))MQ(消息队列)</div>
-              </div>
-            </el-col>
-            <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-down">
-                <div class="live-down-left">
-                  <div name="消息队列" class="live-for">
-                    <i class="fa fa-tags" style="color: rgb(213, 43, 179);"></i> 消息队列
-                  </div>
-                </div>
-                <div class="live-down-right">
-                  <div class="live-name">
-                    <i class="fa fa-user"></i>
-                    <span>aqian666</span>
-                  </div>
-                  <div class="live-time">
-                    <i class="fa fa-clock-o"></i>
-                    <span>2020-07-17 16:56:00</span>
-                  </div>
-                </div>
-              </div>
-            </el-col>
-          </div>
-        </div>
-      </div>
-    </router-link>
-<router-link  :to="'/ArticleDetail/'+'1'">
-      <div class="article art-card art-card-bordered">
-        <div class="art-body">
-          <div class="art-row">
-            <el-col :xs="9" :sm="7" :md="7" :lg="8" :xl="1" style="overflow:hidden">
-              <img
-                src="https://double.aquestian.cn/2020-07-17-16-36-12-ribbit-mq.jpg"
-                class="art-img"
-                style="width: 100%;"
-              />
-            </el-col>
-            <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-info">
-                <div class="live-title">MQ(消息队列)常见的应用场景解析</div>
+                <div class="live-title">{{article.title}}</div>
                 <div
                   class="live-desc"
                 >MQ(消MQ(消MQ(消息MQ()常见的应用场景解析MQ(消息队列)常见的应用场景解析MQ(消息队列)(消息队列)())))MQ(消息队列)</div>
@@ -85,184 +43,6 @@
       </div>
     </router-link>
 
-
-    <router-link  :to="'/ArticleDetail/'+'1'">
-      <div class="article art-card art-card-bordered">
-        <div class="art-body">
-          <div class="art-row">
-            <el-col :xs="9" :sm="7" :md="7" :lg="8" :xl="1" style="overflow:hidden">
-              <img
-                src="https://double.aquestian.cn/2020-07-17-16-36-12-ribbit-mq.jpg"
-                class="art-img"
-                style="width: 100%;"
-              />
-            </el-col>
-            <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-info">
-                <div class="live-title">MQ(消息队列)常见的应用场景解析</div>
-                <div
-                  class="live-desc"
-                >MQ(消MQ(消MQ(消息MQ()常见的应用场景解析MQ(消息队列)常见的应用场景解析MQ(消息队列)(消息队列)())))MQ(消息队列)</div>
-              </div>
-            </el-col>
-            <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-down">
-                <div class="live-down-left">
-                  <div name="消息队列" class="live-for">
-                    <i class="fa fa-tags" style="color: rgb(213, 43, 179);"></i> 消息队列
-                  </div>
-                </div>
-                <div class="live-down-right">
-                  <div class="live-name">
-                    <i class="fa fa-user"></i>
-                    <span>aqian666</span>
-                  </div>
-                  <div class="live-time">
-                    <i class="fa fa-clock-o"></i>
-                    <span>2020-07-17 16:56:00</span>
-                  </div>
-                </div>
-              </div>
-            </el-col>
-          </div>
-        </div>
-      </div>
-    </router-link>
-
-
-
-    <router-link  :to="'/ArticleDetail/'+'1'">
-      <div class="article art-card art-card-bordered">
-        <div class="art-body">
-          <div class="art-row">
-            <el-col :xs="9" :sm="7" :md="7" :lg="8" :xl="1" style="overflow:hidden">
-              <img
-                src="https://double.aquestian.cn/2020-07-17-16-36-12-ribbit-mq.jpg"
-                class="art-img"
-                style="width: 100%;"
-              />
-            </el-col>
-            <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-info">
-                <div class="live-title">MQ(消息队列)常见的应用场景解析</div>
-                <div
-                  class="live-desc"
-                >MQ(消MQ(消MQ(消息MQ()常见的应用场景解析MQ(消息队列)常见的应用场景解析MQ(消息队列)(消息队列)())))MQ(消息队列)</div>
-              </div>
-            </el-col>
-            <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-down">
-                <div class="live-down-left">
-                  <div name="消息队列" class="live-for">
-                    <i class="fa fa-tags" style="color: rgb(213, 43, 179);"></i> 消息队列
-                  </div>
-                </div>
-                <div class="live-down-right">
-                  <div class="live-name">
-                    <i class="fa fa-user"></i>
-                    <span>aqian666</span>
-                  </div>
-                  <div class="live-time">
-                    <i class="fa fa-clock-o"></i>
-                    <span>2020-07-17 16:56:00</span>
-                  </div>
-                </div>
-              </div>
-            </el-col>
-          </div>
-        </div>
-      </div>
-    </router-link>
-
-
-
-    <router-link  :to="'/ArticleDetail/'+'1'">
-      <div class="article art-card art-card-bordered">
-        <div class="art-body">
-          <div class="art-row">
-            <el-col :xs="9" :sm="7" :md="7" :lg="8" :xl="1" style="overflow:hidden">
-              <img
-                src="https://double.aquestian.cn/2020-07-17-16-36-12-ribbit-mq.jpg"
-                class="art-img"
-                style="width: 100%;"
-              />
-            </el-col>
-            <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-info">
-                <div class="live-title">MQ(消息队列)常见的应用场景解析</div>
-                <div
-                  class="live-desc"
-                >MQ(消MQ(消MQ(消息MQ()常见的应用场景解析MQ(消息队列)常见的应用场景解析MQ(消息队列)(消息队列)())))MQ(消息队列)</div>
-              </div>
-            </el-col>
-            <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-down">
-                <div class="live-down-left">
-                  <div name="消息队列" class="live-for">
-                    <i class="fa fa-tags" style="color: rgb(213, 43, 179);"></i> 消息队列
-                  </div>
-                </div>
-                <div class="live-down-right">
-                  <div class="live-name">
-                    <i class="fa fa-user"></i>
-                    <span>aqian666</span>
-                  </div>
-                  <div class="live-time">
-                    <i class="fa fa-clock-o"></i>
-                    <span>2020-07-17 16:56:00</span>
-                  </div>
-                </div>
-              </div>
-            </el-col>
-          </div>
-        </div>
-      </div>
-    </router-link>
-
-
-
-    <router-link  :to="'/ArticleDetail/'+'1'">
-      <div class="article art-card art-card-bordered">
-        <div class="art-body">
-          <div class="art-row">
-            <el-col :xs="9" :sm="7" :md="7" :lg="8" :xl="1" style="overflow:hidden">
-              <img
-                src="https://double.aquestian.cn/2020-07-17-16-36-12-ribbit-mq.jpg"
-                class="art-img"
-                style="width: 100%;"
-              />
-            </el-col>
-            <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-info">
-                <div class="live-title">MQ(消息队列)常见的应用场景解析</div>
-                <div
-                  class="live-desc"
-                >MQ(消MQ(消MQ(消息MQ()常见的应用场景解析MQ(消息队列)常见的应用场景解析MQ(消息队列)(消息队列)())))MQ(消息队列)</div>
-              </div>
-            </el-col>
-            <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="1">
-              <div class="live-down">
-                <div class="live-down-left">
-                  <div name="消息队列" class="live-for">
-                    <i class="fa fa-tags" style="color: rgb(213, 43, 179);"></i> 消息队列
-                  </div>
-                </div>
-                <div class="live-down-right">
-                  <div class="live-name">
-                    <i class="fa fa-user"></i>
-                    <span>aqian666</span>
-                  </div>
-                  <div class="live-time">
-                    <i class="fa fa-clock-o"></i>
-                    <span>2020-07-17 16:56:00</span>
-                  </div>
-                </div>
-              </div>
-            </el-col>
-          </div>
-        </div>
-      </div>
-    </router-link>
     <el-col :xs="16" :sm="16" :md="24" :lg="24" :xl="1">
       <el-pagination background layout="prev, pager, next " :total="100"></el-pagination>
     </el-col>
@@ -271,8 +51,28 @@
 
 
 <script>
+import { getArticleListPage } from "@/api/article";
+
 export default {
-  name: "ArticleList"
+  name: "ArticleList",
+  data() {
+    return {
+      articleList: "",
+    };
+  },
+  methods: {
+    getArticleListPage() {
+      getArticleListPage("article/getArticleListPage", {
+        current: 1,
+        size: 3,
+      }).then((res) => {
+        this.articleList = res.result.records;
+      });
+    },
+  },
+  created() {
+    this.getArticleListPage();
+  },
 };
 </script>
 

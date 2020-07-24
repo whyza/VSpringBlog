@@ -1,13 +1,22 @@
 <template>
   <el-row>
-    <el-col :xs="7" :sm="7" :md="5" :lg="3" :xl="1" v-for="o in 8" :key="o" :offset="1">
+    <el-col
+      :xs="7"
+      :sm="7"
+      :md="5"
+      :lg="3"
+      :xl="1"
+      v-for="article in articleList"
+      :key="article"
+      :offset="1"
+    >
       <el-card class="articlecard" :body-style="{ padding: '0px' }" style="margin-bottom:20px;">
         <img src="https://iazuresky.com/usr/uploads/2019/10/1159780893.jpg" class="image" />
         <div style="padding: 14px;">
           <div class="bottom clearfix">
             <div class="articletitle">
               <i class="fa fa-bookmark" aria-hidden="true"></i>
-              <span>nginx反向代理解决跨域</span>
+              <span>{{article.title}}</span>
             </div>
             <div class="pushtime">
               <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -82,11 +91,27 @@
 </style>
 
 <script>
+import { getArticleListPage } from "@/api/article";
+
 export default {
   data() {
     return {
-      currentDate: new Date()
+      currentDate: new Date(),
+      articleList: "",
     };
+  },
+  methods: {
+    getArticleListPage() {
+      getArticleListPage("article/getArticleListPage", {
+        current: 1,
+        size: 3,
+      }).then((res) => {
+        this.articleList = res.result.records;
+      });
+    },
+  },
+  created(){
+    this.getArticleListPage();
   }
 };
 </script>

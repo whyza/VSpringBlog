@@ -13,28 +13,28 @@
     >
       <h3 class="title">Login-Admin</h3>
       <div class="signup">sign up to continue</div>
-      <el-form-item prop="username">
+      <el-form-item prop="userName">
         <span class="svg-container">
           <svg-icon icon-class="user"/>
         </span>
         <el-input
-          v-model="loginForm.username"
-          name="username"
+          v-model="loginForm.userName"
+          name="userName"
           type="text"
           auto-complete="off"
-          placeholder="username"
+          placeholder="userName"
         />
       </el-form-item>
-      <el-form-item prop="password">
+      <el-form-item prop="passWord">
         <span class="svg-container">
-          <svg-icon icon-class="password"/>
+          <svg-icon icon-class="passWord"/>
         </span>
         <el-input
           :type="pwdType"
-          v-model="loginForm.password"
+          v-model="loginForm.passWord"
           name="password"
           auto-complete="off"
-          placeholder="password"
+          placeholder="passWord"
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
@@ -74,17 +74,17 @@ export default {
     };
     return {
       loginForm: {
-        username: "admin",
-        password: "admin"
+        userName: "admin",
+        passWord: "123456"
       },
       loginRules: {
-        username: [
+        userName: [
           { required: true, trigger: "blur", validator: validateUsername }
         ],
-        password: [{ required: true, trigger: "blur", validator: validatePass }]
+        passWord: [{ required: true, trigger: "blur", validator: validatePass }]
       },
       loading: false,
-      pwdType: "password",
+      pwdType: "passWord",
       redirect: undefined
     };
   },
@@ -98,10 +98,10 @@ export default {
   },
   methods: {
     showPwd() {
-      if (this.pwdType === "password") {
+      if (this.pwdType === "passWord") {
         this.pwdType = "";
       } else {
-        this.pwdType = "password";
+        this.pwdType = "passWord";
       }
     },
     handleLogin() {
