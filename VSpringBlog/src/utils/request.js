@@ -16,7 +16,7 @@ service.interceptors.request.use(
   config => {
     if (store.getters.token) {
       //请求携带自定义token
-      config.headers['X-Token'] = getToken()
+      config.headers['Access-Token'] = getToken()
     }
     return config
   },

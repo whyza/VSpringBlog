@@ -27,20 +27,20 @@
 // }
 import request from '@/utils/request'
 
-export function login(userName, password) {
+export function login(userName, passWord) {
   return request({
-    url: '/userLogin',
+    url: '/sys/login',
     method: 'post',
     data: {
       userName,
-      password
+      passWord
     }
   })
 }
 
 export function getInfo(userName) {
   return request({
-    url: '/queryUserInfoByName',
+    url: '/sys/getUsreInfo',
     method: 'get',
     params: {userName}
   })

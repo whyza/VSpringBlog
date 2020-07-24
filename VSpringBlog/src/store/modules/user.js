@@ -6,7 +6,8 @@ const user = {
     token: getToken(),
     name: '',
     avatar: '',
-    roles: []
+    roles: [],
+    userId:""
   },
 
   mutations: {
@@ -14,7 +15,7 @@ const user = {
       state.token = token
     },
     SET_NAME: (state, name) => {
-      localStorage.setItem('name',name);
+      localStorage.setItem('name', name);
       state.name = name
     },
     SET_AVATAR: (state, avatar) => {
@@ -22,22 +23,26 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_USERID: (state, userId) => {
+      state.userId = userId
     }
   },
 
   actions: {
     // 登录
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+      const userName = userInfo.userName.trim()
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
-          if(response.data.status){
-            const data = response.data
+        login(userName, userInfo.passWord).then(response => {
+          if (response.success) {
+            const data = response.result
             setToken(data.token)
             commit('SET_TOKEN', data.token)
-            commit('SET_NAME', username)
-          }else{
-            showMessage(true,"error",response.message,3000);
+            commit('SET_NAME', userName)
+            commit('SET_USERID', data.userInfo.id)
+          } else {
+            showMessage(true, "error", response.message, 3000);
           }
           resolve(response)
         }).catch(error => {
@@ -48,20 +53,20 @@ const user = {
 
     // 获取用户信息
     GetInfo({ commit, state }) {
-      const username = localStorage.getItem('name');
-      return new Promise((resolve, reject) => { 
-        getInfo(username).then(response => {
-          if(response.data.code === 500){
-             removeToken()
-          }
-          const data = response.data
-          // if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-          commit('SET_ROLES', ['admin'])
-          // } else {
-            // reject('getInfo: roles must be a non-null array !')
+      const userName = localStorage.getItem('name');
+      return new Promise((resolve, reject) => {
+        getInfo(userName).then(response => {
+          // if(response.data === 500){
+          //    removeToken()
           // }
-          commit('SET_NAME', username)
-          commit('SET_AVATAR', data.avatarUrl)
+          // const data = response.data
+          // if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+          commit('SET_ROLES', response)
+          // } else {
+          // reject('getInfo: roles must be a non-null array !')
+          // }
+          commit('SET_NAME', userName)
+          // commit('SET_AVATAR', data.avatarUrl)
           resolve(response)
         }).catch(error => {
           reject(error)

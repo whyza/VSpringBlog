@@ -8,7 +8,7 @@ module.exports = {
   dev: {
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',
+    assetsPublicPath: '/',
     proxyTable: {
       '/api': {
         target: 'http://api.yytianqi.com/forecast7d', // 你请求的第三方接口
@@ -95,7 +95,7 @@ module.exports = {
      * then assetsPublicPath should be set to "/bar/".
      * In most cases please use '/' !!!
      */
-    assetsPublicPath: './',
+    assetsPublicPath: '/',
 
     /**
      * Source Maps
