@@ -15,12 +15,12 @@ export default {
   data() {
     return {
       imgurl: "",
-      imgHeight: ""
+      imgHeight: "",
     };
   },
   methods: {
     imgLoad() {
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         // 获取窗口宽度*图片的比例，定义页面初始的轮播图高度
         this.imgHeight = (document.body.clientWidth * 1) / 4;
       });
@@ -28,17 +28,19 @@ export default {
     getImgUrl() {
       this.imgurl = [
         "https://iazuresky.com/usr/themes/Akina/images/postbg/1.jpg",
-        "https://iazuresky.com/usr/themes/Akina/images/postbg/2.jpg"
+        "https://iazuresky.com/usr/themes/Akina/images/postbg/2.jpg",
       ];
       this.imgLoad();
-    }
+    },
   },
   mounted() {
     this.getImgUrl();
     // 监听窗口变化，使得轮播图高度自适应图片高度
-    window.addEventListener("resize", () => {
-      this.imgHeight = this.$refs.image[0].height;
-    });
-  }
+    let that = this;
+    window.onresize = function temp() {
+      // 通过点语法获取img的height属性值
+      that.imgHeight = `${that.$refs.image["0"].height}`;
+    };
+  },
 };
 </script>
