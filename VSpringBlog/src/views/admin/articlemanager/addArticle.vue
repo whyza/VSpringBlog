@@ -165,7 +165,8 @@ export default {
             uid: 1,
             state: 0,
           };
-          addArticle("/article/addArticle", data).then((res) => {
+          let tags = this.tags;
+          addArticle("/article/addArticle", {data, tags}).then((res) => {
             this.$notify({
               title: res.success === true ? "成功" : "失败",
               message: res.message,

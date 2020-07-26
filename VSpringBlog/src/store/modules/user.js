@@ -61,7 +61,7 @@ const user = {
           // }
           // const data = response.data
           // if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-          commit('SET_ROLES', response)
+          commit('SET_ROLES', response.result)
           // } else {
           // reject('getInfo: roles must be a non-null array !')
           // }

@@ -11,7 +11,7 @@ import Layout from '@/views/admin/layout/Layout'
 import index from '@/views/front/index'
 import Article from '@/views/front/Article'
 import ArtCategory from '@/views/front/ArtCategory'
-import UserManager from '@/views/admin/userManager/UserManager'
+// import UserManager from '@/views/admin/userManager/UserManager'
 
 
 /**
@@ -44,15 +44,28 @@ export const constantRouterMap = [
     component: Article
   }
   ,
-  { path: '/admin/login', component: () => import('@/views/admin/login/index'), hidden: true },
+  { path: '/login', component: () => import('@/views/admin/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/admin/404'), hidden: true },
+  { path: '*', component: () => import('@/views/admin/404'), hidden: true },
+
+]
+//实例化vue的时候只挂载constantRouterMap
+export default new Router({
+  mode: 'history', //后端支持可开
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRouterMap
+});
+
+
+export const asyncRouterMap  = [
+
 
   {
     path: '/admin',
     component: Layout,
     redirect: '/admin/index',
     name: 'index',
-    meta: { title: '首页', icon: 'index' },
+    meta: { title: '首页', icon: 'index', roles: ['admin'] },
     children: [{
       path: 'index',
       name: 'homeindex',
@@ -65,7 +78,7 @@ export const constantRouterMap = [
     component: Layout,
     name: '文章管理',
     redirect: '/article/articleList',
-    meta: { title: '文章管理', icon: 'index' },
+    meta: { title: '文章管理', icon: 'index', roles: ['admin'] },
     children: [{
       path: 'articleList',
       name: '/article/articleList',
@@ -83,6 +96,8 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/userManager',
     name: '用户管理',
+    meta: { title: '首页', icon: 'index', roles: ['admin'] },
+
     children: [{
       path: 'userManager',
       name: 'userManager',
@@ -94,6 +109,8 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/commentManager',
     name: '评论管理',
+    meta: { title: '首页', icon: 'index', roles: ['admin'] },
+
     children: [{
       path: 'commentManager',
       name: 'commentManager',
@@ -105,6 +122,8 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/categoryManager',
     name: '分类管理',
+    meta: { title: '首页', icon: 'index', roles: ['admin'] },
+
     children: [{
       path: 'categoryManager',
       name: 'categoryManager',
@@ -116,6 +135,8 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/dataStatistics',
     name: '数据统计',
+    meta: { title: '首页', icon: 'index', roles: ['admin'] },
+
     children: [{
       path: 'dataStatistics',
       name: 'dataStatistics',
@@ -124,9 +145,3 @@ export const constantRouterMap = [
     }]
   }
 ]
-
-export default new Router({
-  // mode: 'history', //后端支持可开
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
-})

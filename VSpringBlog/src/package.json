@@ -11,7 +11,8 @@
     "build:report": "npm_config_report=true npm run build",
     "lint": "eslint --ext .js,.vue src",
     "test": "npm run lint",
-    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml"
+    "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
+    "serve": "vue-cli-service serve"
   },
   "dependencies": {
     "@antv/g2": "^4.0.12",

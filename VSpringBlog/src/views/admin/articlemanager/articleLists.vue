@@ -7,7 +7,7 @@
       :lg="3"
       :xl="1"
       v-for="article in articleList"
-      :key="article"
+      :key="article.id"
       :offset="1"
     >
       <el-card class="articlecard" :body-style="{ padding: '0px' }" style="margin-bottom:20px;">

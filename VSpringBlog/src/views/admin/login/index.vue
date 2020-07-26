@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="lowin-brand">
-      <img class="header-image" src="@/images/kodinger.jpg" alt="logo">
+      <img class="header-image" src="@/images/kodinger.jpg" alt="logo" />
     </div>
     <el-form
       ref="loginForm"
@@ -15,7 +15,7 @@
       <div class="signup">sign up to continue</div>
       <el-form-item prop="userName">
         <span class="svg-container">
-          <svg-icon icon-class="user"/>
+          <svg-icon icon-class="user" />
         </span>
         <el-input
           v-model="loginForm.userName"
@@ -27,7 +27,7 @@
       </el-form-item>
       <el-form-item prop="passWord">
         <span class="svg-container">
-          <svg-icon icon-class="passWord"/>
+          <svg-icon icon-class="passWord" />
         </span>
         <el-input
           :type="pwdType"
@@ -38,7 +38,7 @@
           @keyup.enter.native="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
-          <svg-icon icon-class="eye"/>
+          <svg-icon icon-class="eye" />
         </span>
       </el-form-item>
       <el-form-item>
@@ -75,26 +75,28 @@ export default {
     return {
       loginForm: {
         userName: "admin",
-        passWord: "123456"
+        passWord: "123456",
       },
       loginRules: {
         userName: [
-          { required: true, trigger: "blur", validator: validateUsername }
+          { required: true, trigger: "blur", validator: validateUsername },
         ],
-        passWord: [{ required: true, trigger: "blur", validator: validatePass }]
+        passWord: [
+          { required: true, trigger: "blur", validator: validatePass },
+        ],
       },
       loading: false,
       pwdType: "passWord",
-      redirect: undefined
+      redirect: undefined,
     };
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect;
       },
-      immediate: true
-    }
+      immediate: true,
+    },
   },
   methods: {
     showPwd() {
@@ -105,7 +107,7 @@ export default {
       }
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true;
           this.$store
@@ -122,8 +124,8 @@ export default {
           return false;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -146,7 +148,7 @@ $light_gray: #eee;
     z-index: 1;
     position: relative;
     margin-top: 120px;
-    .header-image{
+    .header-image {
       width: 80px;
       height: 80px;
     }
@@ -186,7 +188,7 @@ $light_gray: #eee;
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: rgba(68, 160, 179, .06);
+  background-color: rgba(68, 160, 179, 0.06);
   .login-form {
     position: absolute;
     left: 0;
@@ -217,7 +219,7 @@ $light_gray: #eee;
     text-align: center;
     font-weight: bold;
   }
-  .signup{
+  .signup {
     font-size: 12px;
     font-weight: 300;
     color: $dark_gray;
