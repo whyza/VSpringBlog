@@ -66,7 +66,7 @@ export default {
         current: 1,
         size: 3,
       }).then((res) => {
-        this.articleList = res.result.records;
+        this.articleList = res.data.records;
       });
     },
   },

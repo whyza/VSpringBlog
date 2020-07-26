@@ -21,7 +21,7 @@ router.beforeEach((to, from, next) => {
       const hasRoles = store.getters.roles && store.getters.roles.length > 0
       if (!hasRoles) {
         store.dispatch('GetInfo').then(res => { // 拉取用户信息
-          const roles = res.result;
+          const roles = res.data;
           store.dispatch('GenerateRoutes', { roles }).then(() => { // 根据roles权限生成可访问的路由表
             router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
@@ -43,10 +43,9 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     //未登录
-    //去login页面
-    // console.log(to.path.indexOf(whiteList) !== -1)
+    //去admin页面
     if (to.path.indexOf(whiteList) !== -1) {
-      next('/login')
+      next(`/login?redirect=${to.path}`) // 否则全部重定向到登录页
     } else {
       next();
       NProgress.done()

@@ -18,37 +18,39 @@
 
       <div class="articlede-body">
         <div class="markdown-body">
-            <mavon-editor
-              v-model="content"
-              :subfield="false"
-              :boxShadow="false"
-              defaultOpen="preview"
-              :toolbarsFlag="false"
-            />
+          <mavon-editor
+            v-model="content"
+            :subfield="false"
+            :boxShadow="false"
+            defaultOpen="preview"
+            :toolbarsFlag="false"
+          />
         </div>
         <div class="arttags"></div>
       </div>
-    </div>
-    <div class="metas">
-      <div class="item">
-        <div class="title">
-          <i class="el-icon-s-flag"></i>
-          <span>相关标签:</span>
-        </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          <i class="el-icon-position"></i>
+            <el-divider></el-divider>
 
-          <span>永久地址:</span>
-          <span>http://localhost:8080/#/ArticleDetail/1</span>
+      <div class="metas">
+        <div class="item">
+          <div class="title">
+            <i class="el-icon-s-flag"></i>
+            <span>相关标签:</span>
+          </div>
         </div>
-      </div>
-      <div class="item">
-        <div class="title">
-          <i class="el-icon-share"></i>
-          <span>版权声明:</span>
-          <span>自由转载-署名-非商业性使用 | Creative Commons BY-NC 3.0 CN 著作权归作者所有。</span>
+        <div class="item">
+          <div class="title">
+            <i class="el-icon-position"></i>
+
+            <span>永久地址:</span>
+            <span>http://localhost:8080/#/ArticleDetail/1</span>
+          </div>
+        </div>
+        <div class="item">
+          <div class="title">
+            <i class="el-icon-share"></i>
+            <span>版权声明:</span>
+            <span>自由转载-署名-非商业性使用 | Creative Commons BY-NC 3.0 CN 著作权归作者所有。</span>
+          </div>
         </div>
       </div>
     </div>
@@ -61,7 +63,7 @@ import { mavonEditor } from "mavon-editor";
 export default {
   name: "ArticleDetail",
   components: {
-    mavonEditor
+    mavonEditor,
   },
   data() {
     return {
@@ -73,7 +75,7 @@ export default {
       getArticleContentByUserId("article/getArticleContentByUserId", {
         articleId: this.$route.params.id,
       }).then((res) => {
-        this.content = res.result.htmlText;
+        this.content = res.data.htmlText;
       });
     },
   },
@@ -133,7 +135,7 @@ export default {
   margin-bottom: 10px;
 }
 .articlede-body {
-  padding: 0 30px;
+  padding: 0 15px;
   word-wrap: break-word;
   /* line-height: 26px; */
 }
@@ -160,5 +162,18 @@ export default {
   color: rgb(255, 0, 0);
   font-size: 14px;
   padding-right: 10px;
+}
+</style>
+<style>
+.markdown-body .v-note-wrapper {
+  min-height: 100px;
+  z-index: inherit;
+  border: inherit;
+}
+.markdown-body .v-note-panel .v-note-show .v-show-content {
+  background-color: #fff !important;
+}
+.el-divider--horizontal{
+  margin:10px 0 5px 0;
 }
 </style>

@@ -35,8 +35,8 @@ const user = {
       const userName = userInfo.userName.trim()
       return new Promise((resolve, reject) => {
         login(userName, userInfo.passWord).then(response => {
-          if (response.success) {
-            const data = response.result
+          if (response.code === 200) {
+            const data = response.data
             setToken(data.token)
             commit('SET_TOKEN', data.token)
             commit('SET_NAME', userName)
@@ -61,7 +61,7 @@ const user = {
           // }
           // const data = response.data
           // if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-          commit('SET_ROLES', response.result)
+          commit('SET_ROLES', response.data)
           // } else {
           // reject('getInfo: roles must be a non-null array !')
           // }
@@ -77,7 +77,7 @@ const user = {
     // 登出
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        logout().then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           removeToken()

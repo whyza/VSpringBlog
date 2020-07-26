@@ -10,43 +10,6 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: 'http://api.yytianqi.com/forecast7d', // 你请求的第三方接口
-        changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-        // pathRewrite: {  // 路径重写，
-        //   '^/api': '/api'  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-        // }
-        onProxyReq: function (proxyReq, req, res) {
-          console.log("原路径：" + req.originalUrl, "代理路径：" + req.path)
-        }
-      }, '/mapi': {
-        target: 'https://api.douban.com/v2/movie/', // 你请求的第三方接口
-        changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-        pathRewrite: {  // 路径重写，
-          '^/mapi': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-        },
-        onProxyReq: function (proxyReq, req, res) {
-          console.log("原路径：" + req.originalUrl, "代理路径：" + req.path)
-        }
-      }, '/user': {
-        target: 'http://localhost:3000/', // 你请求的第三方接口
-        changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-        pathRewrite: {  // 路径重写，
-          '^/user': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-        },
-        onProxyReq: function (proxyReq, req, res) {
-          console.log("原路径：" + req.originalUrl, "代理路径：" + req.path)
-        }
-      }, '/log': {
-        target: 'http://localhost:8082/', // 你请求的第三方接口
-        changeOrigin: true, // 在本地会创建一个虚拟服务端，然后发送请求的数据，并同时接收请求的数据，这样服务端和服务端进行数据的交互就不会有跨域问题
-        pathRewrite: {  // 路径重写，
-          '^/log': ''  // 替换target中的请求地址，也就是说以后你在请求http://api.jisuapi.com/XXXXX这个地址的时候直接写成/api即可。
-        },
-        onProxyReq: function (proxyReq, req, res) {
-          console.log("原路径：" + req.originalUrl, "代理路径：" + req.path)
-        }
-      }
     },
 
     // Various Dev Server settings

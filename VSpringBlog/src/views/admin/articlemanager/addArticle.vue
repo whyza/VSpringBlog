@@ -77,7 +77,7 @@
       </div>
       <div class="addArticle-btn">
         <el-form-item>
-          <el-button type="primary" @click="submit('articleForm')">发布文章</el-button>
+          <el-button type="primary" @click="submit('articleForm')" :loading="loading">发布文章</el-button>
         </el-form-item>
       </div>
     </el-form>
@@ -98,6 +98,7 @@ export default {
   },
   data() {
     return {
+      loading:false,
       articleForm: {
         title: "",
         content: "",
@@ -152,9 +153,6 @@ export default {
       var _this = this;
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          console.log(this.articleForm);
-          console.log(this.html);
-          this.$message.success("提交成功，已打印至控制台！");
           this.loading = true;
           let articleForm = this.articleForm;
           let data = {
@@ -168,11 +166,10 @@ export default {
           let tags = this.tags;
           addArticle("/article/addArticle", {data, tags}).then((res) => {
             this.$notify({
-              title: res.success === true ? "成功" : "失败",
+              title: res.code === 200 ? "成功" : "失败",
               message: res.message,
               type: res.code === 200 ? "success" : "warning",
             });
-            console.log(res);
             this.loading = false;
           });
         } else {

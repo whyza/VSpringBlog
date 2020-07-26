@@ -28,11 +28,11 @@ service.interceptors.request.use(
 // response 拦截器
 service.interceptors.response.use(
   response => {
-    const res = response
+    const res = response.data
     if (res.code === 500) {
-      showMessage(true, "error", res, 1000);
-    }else{
-      return response.data
+      showMessage(true, "error", res.msg, 1000);
+    } else {
+      return res
     }
     // if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
     //   MessageBox.confirm(
