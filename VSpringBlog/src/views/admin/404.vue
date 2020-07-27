@@ -2,14 +2,15 @@
   <div class="wscn-http404-container">
     <div class="wscn-http404">
       <div class="pic-404">
-        <img class="pic-404__parent" src="@/assets/404_images/404.png" alt="404">
-        <img class="pic-404__child left" src="@/assets/404_images/404_cloud.png" alt="404">
-        <img class="pic-404__child mid" src="@/assets/404_images/404_cloud.png" alt="404">
-        <img class="pic-404__child right" src="@/assets/404_images/404_cloud.png" alt="404">
+        <img class="pic-404__parent" src="@/assets/404_images/404.png" alt="404" />
+        <img class="pic-404__child left" src="@/assets/404_images/404_cloud.png" alt="404" />
+        <img class="pic-404__child mid" src="@/assets/404_images/404_cloud.png" alt="404" />
+        <img class="pic-404__child right" src="@/assets/404_images/404_cloud.png" alt="404" />
       </div>
       <div class="bullshit">
         <div class="bullshit__oops">OOPS!</div>
-        <div class="bullshit__info">版权所有
+        <div class="bullshit__info">
+          版权所有
           <a class="link-type" href="https://wallstreetcn.com" target="_blank">华尔街见闻</a>
         </div>
         <div class="bullshit__headline">{{ message }}</div>
@@ -21,20 +22,23 @@
 </template>
 
 <script>
-
 export default {
-  name: 'Page404',
+  name: "Page404",
   computed: {
     message() {
-      return '网管说这个页面你不能进......'
-    }
-  }
-}
+      return "网管说这个页面你不能进......";
+    },
+  },
+};
 </script>
-
+<style>
+</style>
 <style rel="stylesheet/scss" lang="scss" scoped>
-.wscn-http404-container{
-  transform: translate(-50%,-50%);
+body #app {
+  position: absolute;
+}
+.wscn-http404-container {
+  transform: translate(-50%, -50%);
   position: absolute;
   top: 40%;
   left: 50%;

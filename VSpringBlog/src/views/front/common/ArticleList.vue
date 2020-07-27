@@ -1,7 +1,7 @@
 <template>
-  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1">
+  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1" >
     <router-link v-for="article in articleList" :key="article.id"  :to="'/ArticleDetail/'+article.id">
-      <div class="article art-card art-card-bordered">
+      <div class="article art-card art-card-bordered animated bounce" >
         <div class="art-body">
           <div class="art-row">
             <el-col :xs="9" :sm="7" :md="7" :lg="8" :xl="1" style="overflow:hidden">
@@ -64,7 +64,7 @@ export default {
     getArticleListPage() {
       getArticleListPage("article/getArticleListPage", {
         current: 1,
-        size: 3,
+        size: 50,
       }).then((res) => {
         this.articleList = res.data.records;
       });
@@ -76,7 +76,7 @@ export default {
 };
 </script>
 
-<style>
+<style  scoped>
 /* 文章card */
 .article {
   height: 100%;
@@ -86,7 +86,7 @@ export default {
   transition: all 0.2s ease-in-out;
 }
 .article:hover {
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 6px hsla(184, 100%, 50%, 0.5);
   border-color: #eee;
 }
 .art-card-bordered {

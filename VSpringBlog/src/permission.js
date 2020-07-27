@@ -4,7 +4,7 @@ import NProgress from 'nprogress' // Progress 进度条
 import 'nprogress/nprogress.css'// Progress 进度条样式
 import { Message } from 'element-ui'
 import { getToken } from '@/utils/auth' // 验权
-
+NProgress.configure({ easing: 'ease-in-out', speed: 1000, showSpinner: true })
 // permission judge function
 function hasPermission(roles, permissionRoles) {
   if (!permissionRoles) return true
@@ -29,7 +29,7 @@ router.beforeEach((to, from, next) => {
         }).catch((err) => {
           store.dispatch('FedLogOut').then(() => {
             Message.error(err || 'Verification failed, please login again')
-            next({ path: '/' })
+            next({ path: '/login' })
           })
         })
       } else {

@@ -104,7 +104,7 @@ export default {
     getArticleListPage() {
       getArticleListPage("article/getArticleListPage", {
         current: 1,
-        size: 3,
+        size: 5,
       }).then((res) => {
         this.articleList = res.data.records;
       });

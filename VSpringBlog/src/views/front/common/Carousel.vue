@@ -1,5 +1,5 @@
 <template>
-  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1">
+  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1" >
     <el-carousel :height="(imgHeight>=360? 360:imgHeight)+'px'" indicator-position="outside">
       <el-carousel-item v-for="(item,index) in imgurl" :key="index">
         <img ref="image" style="width:100%;" :src="item" alt="轮播图" />
@@ -34,6 +34,8 @@ export default {
     },
   },
   mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+
     this.getImgUrl();
     // 监听窗口变化，使得轮播图高度自适应图片高度
     let that = this;
@@ -41,6 +43,9 @@ export default {
       // 通过点语法获取img的height属性值
       that.imgHeight = `${that.$refs.image["0"].height}`;
     };
+  },
+  beforeDestroy() {
+    window.onresize = null;
   },
 };
 </script>

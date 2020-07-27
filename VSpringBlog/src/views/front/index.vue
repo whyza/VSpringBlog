@@ -1,23 +1,25 @@
 <template>
   <div>
     <!-- Header start -->
-    <Header />
+    <Header ref="header" class="header-container" />
     <!-- Header end -->
     <!-- main-wrapper -->
     <div class="main-wrapper">
       <div class="home-content">
         <!-- Carousel start -->
+        <Sentences />
+
         <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
           <Carousel />
           <!-- <el-row :gutter="10"> -->
-          <Category/>
+          <Category />
           <!-- </el-row> -->
           <!-- ArticleList start -->
           <ArticleList />
         </el-col>
         <!--SiderBar start  -->
         <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->
-          <SiderBar />
+        <SiderBar />
         <!-- </el-col> -->
       </div>
     </div>
@@ -29,12 +31,13 @@
 
 
 <script>
-
 export default {
-  name: "index"
+  name: "index",
+  data() {
+    return {};
+  },
 };
 </script>
 
 <style>
-
 </style>

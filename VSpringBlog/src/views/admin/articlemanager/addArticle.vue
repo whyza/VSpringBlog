@@ -61,14 +61,16 @@
         <el-form-item prop="title">
           <div class="markdown" style="margin-left:0">
             <div class="container">
+                              <!-- codeStyle="color-brewer monokai-sublime monokai" -->
+
               <mavon-editor
                 v-model="articleForm.content"
                 ref="md"
                 @imgAdd="$imgAdd"
                 @change="change"
                 :navigation="true"
+                codeStyle="monokai"
                 placeholder="请输入..."
-                codeStyle="agate"
                 :ishljs="true"
               />
             </div>
@@ -98,14 +100,14 @@ export default {
   },
   data() {
     return {
-      loading:false,
+      loading: false,
       articleForm: {
         title: "",
         content: "",
         category: "",
         uinputtags: "",
       },
-      tags: [{ name: "标签一", type: "" }],
+      tags: [],
       rules: {
         title: [
           { required: true, message: "请输入文章标题", trigger: "blur" },
@@ -152,6 +154,14 @@ export default {
     submit(formName) {
       var _this = this;
       this.$refs[formName].validate((valid) => {
+        let tagData = [];
+        if (this.tags && this.tags.length > 0) {
+          let tags = this.tags;
+          for (let tagIndex in tags) {
+            tagData.push(tags[tagIndex].name);
+          }
+        }
+
         if (valid) {
           this.loading = true;
           let articleForm = this.articleForm;
@@ -162,9 +172,10 @@ export default {
             category: articleForm.category,
             uid: 1,
             state: 0,
+            tags: tagData,
           };
-          let tags = this.tags;
-          addArticle("/article/addArticle", {data, tags}).then((res) => {
+          // let tags = this.tags;
+          addArticle("/article/addArticle", data).then((res) => {
             this.$notify({
               title: res.code === 200 ? "成功" : "失败",
               message: res.message,
@@ -212,9 +223,8 @@ export default {
     },
     entertoadd() {
       if (this.articleForm.uinputtags && this.articleForm.uinputtags != null) {
-        this.tags.push({ name: this.articleForm.uinputtags, type: "success" });
+        this.tags.push({ name: this.articleForm.uinputtags });
         this.articleForm.uinputtags = "";
-        showMessage(true, "success", "a", 3000);
       }
     },
     deleteTags(tag) {

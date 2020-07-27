@@ -1,5 +1,5 @@
 <template>
-  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" >
     <div class="comment-container">
       <div class="Comment-line">评论</div>
       <div class="comment-list">

@@ -45,100 +45,110 @@
       </div>
 
       <!-- 推荐阅读 -->
+      <transition name="el-fade-in-linear">
+        <div id="other-sider">
+          <div class="side-about">
+            <div class="about-me">
+              <p>
+                <i style="color: #ff0000;" class="fa fa-bookmark" aria-hidden="true"></i>&nbsp;&nbsp;推荐阅读
+              </p>
+            </div>
+            <div class="recommend">
+              <div class="recommend-top">
+                <div class="arc-title">
+                  <a href>MQ(消息队列)常见的应用场景解析</a>
+                </div>
+              </div>
+              <div class="recommend-bottom">
+                <div class="arc-tags color-pink">docker</div>
+                <div class="arc-tags color-blue">大撒大撒</div>
+                <div class="arc-tags color-pink">a撒大苏打></div>
+              </div>
+              <div class="other">
+                <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
+                <i class="fa fa-eye"></i>
+                <i class="fa fa-pencil-square-o"></i>
+                <i class="fa fa-heart-o"></i>
+              </div>
+            </div>
 
-      <div class="side-about">
-        <div class="about-me">
-          <p>
-            <i style="color: #ff0000;" class="fa fa-bookmark" aria-hidden="true"></i>&nbsp;&nbsp;推荐阅读
-          </p>
-        </div>
-        <div class="recommend">
-          <div class="recommend-top">
-            <div class="arc-title">
-              <a href>MQ(消息队列)常见的应用场景解析</a>
+            <div class="recommend">
+              <div class="recommend-top">
+                <div class="arc-title">
+                  <a href>MQ(消息队列)常见的应用场景解析</a>
+                </div>
+              </div>
+              <div class="recommend-bottom">
+                <div class="arc-tags color-pink">docker</div>
+                <div class="arc-tags color-pink">大撒大撒</div>
+                <div class="arc-tags color-blue">a撒大苏打></div>
+              </div>
+              <div class="other">
+                <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
+                <i class="fa fa-eye"></i>
+                <i class="fa fa-pencil-square-o"></i>
+                <i class="fa fa-heart-o"></i>
+              </div>
+            </div>
+
+            <div class="recommend">
+              <div class="recommend-top">
+                <div class="arc-title">
+                  <a href>MQ(消息队列)常见的应用场景解析</a>
+                </div>
+              </div>
+              <div class="recommend-bottom">
+                <div class="arc-tags color-pink">docker</div>
+                <div class="arc-tags color-pink">大撒大撒</div>
+                <div class="arc-tags color-blue">a撒大苏打></div>
+              </div>
+              <div class="other">
+                <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
+                <i class="fa fa-eye"></i>
+                <i class="fa fa-pencil-square-o"></i>
+                <i class="fa fa-heart-o"></i>
+              </div>
+            </div>
+
+            <div class="recommend">
+              <div class="recommend-top">
+                <div class="arc-title">
+                  <a href>MQ(消息队列)常见的应用场景解析</a>
+                </div>
+              </div>
+              <div class="recommend-bottom">
+                <div class="arc-tags color-pink">docker</div>
+                <div class="arc-tags color-pink">大撒大撒</div>
+                <div class="arc-tags color-blue">a撒大苏打></div>
+              </div>
+              <div class="other">
+                <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
+                <i class="fa fa-eye"></i>
+                <i class="fa fa-pencil-square-o"></i>
+                <i class="fa fa-heart-o"></i>
+              </div>
             </div>
           </div>
-          <div class="recommend-bottom">
-            <div class="arc-tags color-pink">docker</div>
-            <div class="arc-tags color-pink">大撒大撒</div>
-            <div class="arc-tags color-pink">a撒大苏打></div>
-          </div>
-          <div class="other">
-            <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
-            <i class="fa fa-eye"></i>
-            <i class="fa fa-pencil-square-o"></i>
-            <i class="fa fa-heart-o"></i>
-          </div>
         </div>
-
-        <div class="recommend">
-          <div class="recommend-top">
-            <div class="arc-title">
-              <a href>MQ(消息队列)常见的应用场景解析</a>
-            </div>
-          </div>
-          <div class="recommend-bottom">
-            <div class="arc-tags color-pink">docker</div>
-            <div class="arc-tags color-pink">大撒大撒</div>
-            <div class="arc-tags color-pink">a撒大苏打></div>
-          </div>
-          <div class="other">
-            <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
-            <i class="fa fa-eye"></i>
-            <i class="fa fa-pencil-square-o"></i>
-            <i class="fa fa-heart-o"></i>
-          </div>
-        </div>
-
-        <div class="recommend">
-          <div class="recommend-top">
-            <div class="arc-title">
-              <a href>MQ(消息队列)常见的应用场景解析</a>
-            </div>
-          </div>
-          <div class="recommend-bottom">
-            <div class="arc-tags color-pink">docker</div>
-            <div class="arc-tags color-pink">大撒大撒</div>
-            <div class="arc-tags color-pink">a撒大苏打></div>
-          </div>
-          <div class="other">
-            <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
-            <i class="fa fa-eye"></i>
-            <i class="fa fa-pencil-square-o"></i>
-            <i class="fa fa-heart-o"></i>
-          </div>
-        </div>
-
-        <div class="recommend">
-          <div class="recommend-top">
-            <div class="arc-title">
-              <a href>MQ(消息队列)常见的应用场景解析</a>
-            </div>
-          </div>
-          <div class="recommend-bottom">
-            <div class="arc-tags color-pink">docker</div>
-            <div class="arc-tags color-pink">大撒大撒</div>
-            <div class="arc-tags color-pink">a撒大苏打></div>
-          </div>
-          <div class="other">
-            <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
-            <i class="fa fa-eye"></i>
-            <i class="fa fa-pencil-square-o"></i>
-            <i class="fa fa-heart-o"></i>
-          </div>
-        </div>
-      </div>
+      </transition>
     </div>
   </el-col>
 </template>
 
 <script>
 export default {
-  name: "Siderbar"
+  name: "Siderbar",
 };
 </script>
-
 <style>
+</style>
+<style scoped>
+.isFixed {
+  position: fixed;
+  background-color: #fff;
+  top: 44px;
+  z-index: 999;
+}
 .side-about {
   background: #fff;
   border-radius: 5px;
@@ -275,7 +285,7 @@ p {
 .recommend .arc-tags {
   display: inline-block;
   height: 18px;
-  line-height: 15px;
+  line-height: 16px;
   margin: 2px 4px 2px 0;
   padding: 0 4px;
   border: 1px solid #e9eaec;
@@ -292,6 +302,11 @@ p {
   border-color: rgb(213, 43, 179);
   color: rgb(255, 255, 255);
 }
+.recommend .color-blue {
+  background: rgb(81, 227, 247);
+  border-color: rgb(81, 227, 247);
+  color: rgb(255, 255, 255);
+}
 .recommend {
   padding-left: 18px;
 }
@@ -299,9 +314,9 @@ p {
   margin-bottom: 5px;
 }
 .recommend .arc-time {
-  font-size: 13px;
+  font-size: 9px;
   line-height: 18px;
-  font-weight: 100;
+  font-weight: 200;
   color: #878d99;
 }
 .recommend .other i {
@@ -310,7 +325,7 @@ p {
   cursor: pointer;
 }
 #siderbar-main {
-  padding-left: 10px;
-
+  padding-left: 13px;
+  position: absolute;
 }
 </style>

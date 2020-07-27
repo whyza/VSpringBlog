@@ -5,16 +5,23 @@ import 'font-awesome/css/font-awesome.min.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/en' // lang i18n
-import i18n from './lang' // Internationalization
 import '@/styles/index.scss' // global css
 import App from './App'
 import router from './router'
 import store from './store'
+import i18n from './lang' // Internationalization
 import '@/icons' // icon
 import '@/permission' // permission control
-import 'github-markdown-css';
-import 'highlight.js/styles/github.css'
+// import 'github-markdown-css';
+// import 'highlight.js/styles/github.css'
+import 'viewerjs/dist/viewer.css'
 import component from '@/views/front/registerComp/component.js'
+import VueParticles from 'vue-particles'
+import animated from 'animate.css'
+import Viewer from 'v-viewer'
+Vue.use(Viewer)
+Vue.use(animated)
+Vue.use(VueParticles)
 Vue.use(component)
 Vue.use(ElementUI, { locale })
 Vue.config.productionTip = false
