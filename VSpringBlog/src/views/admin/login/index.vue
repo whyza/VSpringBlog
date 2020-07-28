@@ -165,10 +165,10 @@ $light_gray: #eee;
       padding: 12px 5px 12px 15px;
       color: #44a0b3;
       height: 47px;
-      &:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px rgba(68, 160, 179, 0.06) inset !important;
-        // -webkit-text-fill-color: #fff !important;
-      }
+      // &:-webkit-autofill {
+      //   -webkit-box-shadow: 0 0 0px 1000px rgba(68, 160, 179, 0.06) inset !important;
+      //   // -webkit-text-fill-color: #fff !important;
+      // }
     }
   }
   .el-form-item {

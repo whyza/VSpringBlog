@@ -62,7 +62,6 @@
           <div class="markdown" style="margin-left:0">
             <div class="container">
                               <!-- codeStyle="color-brewer monokai-sublime monokai" -->
-
               <mavon-editor
                 v-model="articleForm.content"
                 ref="md"
@@ -90,7 +89,6 @@
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import { addArticle } from "@/api/article";
-import { showMessage } from "@/utils/showMessage";
 
 export default {
   name: "",

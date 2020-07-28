@@ -131,6 +131,4 @@ body {
   /* width: auto; */
   min-height: calc(100vh - 108px);
 }
-#nprogress .bar {
-}
 </style>

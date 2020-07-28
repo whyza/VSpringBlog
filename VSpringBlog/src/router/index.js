@@ -10,7 +10,7 @@ Vue.use(Router)
 import Layout from '@/views/admin/layout/Layout'
 import index from '@/views/front/index'
 import Article from '@/views/front/Article'
-import ArtCategory from '@/views/front/ArtCategory'
+import Artcategory from '@/views/front/Artcategory'
 // import UserManager from '@/views/admin/userManager/UserManager'
 
 
@@ -35,11 +35,11 @@ export const constantRouterMap = [
     component: index
   },
   {
-    path: '/Category/:id',
+    path: '/category/:id',
     name: '分类',
-    component: ArtCategory
+    component: Artcategory
   }, {
-    path: '/ArticleDetail/:id',
+    path: '/articleDetail/:id',
     name: '文章详情',
     component: Article
   }

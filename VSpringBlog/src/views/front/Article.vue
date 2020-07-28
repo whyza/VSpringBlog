@@ -1,43 +1,44 @@
 <template>
   <div>
     <!-- Header start -->
-    <Header />
+    <navbar />
     <!-- Header end -->
     <!-- main-wrapper -->
     <div class="main-wrapper">
       <div class="home-content">
-                <Sentences />
-
+        <sentences />
         <!-- Carousel start -->
-        <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="1">
+        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
           <!-- <Carousel /> -->
-
-          <Category />
-          <ArticleDetail />
+          <category />
+          <articleDetail />
         </el-col>
-
-        <!--SiderBar start  -->
+        <!--siderBar start  -->
         <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->
-        <SiderBar />
+        <siderBar />
         <!-- </el-col> -->
-        <el-col :xs="24" :sm="24" :md="18" :lg="18" :xl="1">
-          <Comment />
+        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
+          <comment />
+          <commentEdit />
         </el-col>
       </div>
     </div>
     <!-- main-wrapper -->
     <!-- Footer start -->
-    <Footer />
+    <footers />
   </div>
 </template>
 <script>
-import ArticleDetail from "@/views/front/common/ArticleDetail";
-import Comment from "@/views/front/common/Comment";
+import articleDetail from "@/views/front/common/articleDetail";
+import comment from "@/views/front/common/comment";
+import commentEdit from "@/views/front/common/commentEdit";
+
 export default {
   name: "Article",
   components: {
-    ArticleDetail: ArticleDetail,
-    Comment: Comment,
+    articleDetail,
+    comment,
+    commentEdit,
   },
 };
 </script>

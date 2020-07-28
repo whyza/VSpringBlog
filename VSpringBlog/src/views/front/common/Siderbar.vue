@@ -1,6 +1,6 @@
 <template>
   <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down">
-    <div id="siderbar-main">
+    <div id="siderBar-main">
       <div class="side-about">
         <div class="about-me">
           <p>
@@ -137,7 +137,7 @@
 
 <script>
 export default {
-  name: "Siderbar",
+  name: "siderBar",
 };
 </script>
 <style>
@@ -324,7 +324,7 @@ p {
   padding-right: 6px;
   cursor: pointer;
 }
-#siderbar-main {
+#siderBar-main {
   padding-left: 13px;
   position: absolute;
 }

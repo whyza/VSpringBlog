@@ -18,22 +18,22 @@
     <el-col :xs="24" :sm="24" :md="4" :lg="4" :xl="1" class="hidden-sm-and-down">
       <ul id="nav">
         <li>
-          <router-link class="nav-link contribute" :to="'/Category/'+'2'">
+          <router-link class="nav-link contribute" :to="'/category/'+'2'">
             <span class="el-icon-magic-stick" style="color:orange">&#xA0;SpringBoot</span>
           </router-link>
         </li>
         <li>
-          <router-link class="nav-link contribute" :to="'/Category/'+'3'">
+          <router-link class="nav-link contribute" :to="'/category/'+'3'">
             <span class="el-icon-crop" style="color:#409EFF">&#xA0;Vue</span>
           </router-link>
         </li>
         <li>
-          <router-link class="nav-link contribute" :to="'/Category/'+'1'">
+          <router-link class="nav-link contribute" :to="'/category/'+'1'">
             <span class="el-icon-guide" style="color:#F56C6C">&#xA0;Web</span>
           </router-link>
         </li>
         <li>
-          <router-link class="nav-link contribute" :to="'/Category/'+'4'">
+          <router-link class="nav-link contribute" :to="'/category/'+'4'">
             <span class="el-icon-coin" style="color:#42b983">&#xA0;数据库</span>
           </router-link>
         </li>

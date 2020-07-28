@@ -1,33 +1,33 @@
 <template>
   <div>
     <!-- Header start -->
-    <Header />
+    <navbar />
     <!-- Header end -->
     <!-- main-wrapper -->
     <div class="main-wrapper">
       <div class="home-content">
         <!-- Carousel start -->
-        <Sentences />
+        <sentences />
         <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
-          <Category />
+          <category />
         </el-col>
         <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
-          <ArticleList />
+          <articleList />
         </el-col>
-        <!--SiderBar start  -->
+        <!--siderBar start  -->
         <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->
-          <SiderBar />
+          <siderBar />
         <!-- </el-col> -->
       </div>
     </div>
     <!-- main-wrapper -->
     <!-- Footer start -->
-    <Footer />
+    <footer />
   </div>
 </template>
 <script>
 export default {
-  name: "ArtCategory"
+  name: "Artcategory"
 };
 </script>
 

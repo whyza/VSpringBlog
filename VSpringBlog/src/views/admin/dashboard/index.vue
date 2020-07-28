@@ -12,7 +12,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import G2 from '@antv/g2';
 
 export default {
   name: "Dashboard",

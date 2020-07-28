@@ -8,7 +8,7 @@ import { showMessage } from "@/utils/showMessage"
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api 的 url
-  timeout: 50000 // 请求超时时间
+  timeout: 5000 // 请求超时时间
 })
 
 // request拦截器
@@ -18,6 +18,7 @@ service.interceptors.request.use(
       //请求携带自定义token
       config.headers['Access-Token'] = getToken()
     }
+
     return config
   },
   error => {
@@ -34,7 +35,7 @@ service.interceptors.response.use(
     } else {
       return res
     }
-    // if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
+    // if (!getToken()) {
     //   MessageBox.confirm(
     //     '你已被登出，可以取消继续留在该页面，或者重新登录',
     //     '确定登出',
@@ -50,7 +51,7 @@ service.interceptors.response.use(
     //   })
     //   return Promise.reject('error')
     // } else {
-    //   return response.data
+    //   return res
     // }
 
   },

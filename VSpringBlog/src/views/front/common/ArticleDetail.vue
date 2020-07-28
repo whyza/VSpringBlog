@@ -57,7 +57,7 @@
             <i class="el-icon-position"></i>
 
             <span>永久地址:</span>
-            <span>http://localhost:8080/#/ArticleDetail/1</span>
+            <span>http://localhost:8080/#/articleDetail/1</span>
           </div>
         </div>
         <div class="item">
@@ -74,10 +74,9 @@
 <script>
 import { getArticleContentByUserId } from "@/api/article";
 import { mavonEditor } from "mavon-editor";
-import "mavon-editor/dist/css/index.css";
 
 export default {
-  name: "ArticleDetail",
+  name: "articleDetail",
   components: {
     mavonEditor,
   },

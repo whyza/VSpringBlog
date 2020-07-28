@@ -1,6 +1,6 @@
 <template>
   <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1" >
-    <router-link v-for="article in articleList" :key="article.id"  :to="'/ArticleDetail/'+article.id">
+    <router-link v-for="article in articleList" :key="article.id"  :to="'/articleDetail/'+article.id">
       <div class="article art-card art-card-bordered animated bounce" >
         <div class="art-body">
           <div class="art-row">
