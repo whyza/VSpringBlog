@@ -8,7 +8,7 @@
       <div class="home-content">
         <sentences />
         <!-- Carousel start -->
-        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
+        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
           <!-- <Carousel /> -->
           <category />
           <articleDetail />
@@ -17,9 +17,8 @@
         <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->
         <siderBar />
         <!-- </el-col> -->
-        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
+        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
           <comment />
-          <commentEdit />
         </el-col>
       </div>
     </div>
@@ -34,7 +33,7 @@ import comment from "@/views/front/common/comment";
 import commentEdit from "@/views/front/common/commentEdit";
 
 export default {
-  name: "Article",
+  name: "articleIndex",
   components: {
     articleDetail,
     comment,

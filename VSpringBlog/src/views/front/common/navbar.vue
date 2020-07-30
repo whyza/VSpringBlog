@@ -1,21 +1,29 @@
 <template>
   <div id="Header" ref="header" class="animated fadeInDown header-container">
-    <el-col :xs="24" :sm="24" :md="6" :lg="4" :xl="1" class="hidden-sm-and-down">
-      <router-link class="router-link-active" id="logo" :to="'/index'">
-        <img src="@/assets/logo.png" />
-        <span class="title">答案</span>
-        <span class="motto">go！go！go！</span>
-      </router-link>
+    <el-col :sm="24" :md="6" :lg="4" :xl="18" class="hidden-xs-only">
+      <div class="h-logo">
+        <router-link class="router-link-active" id="logo" :to="'/index'">
+          <img src="@/assets/logo.png" />
+          <span class="title">wl´s blog</span>
+          <span class="motto">go！</span>
+        </router-link>
+      </div>
     </el-col>
-    <el-col :xs="12" :sm="12" class="hidden-sm-and-up" style="padding-top:8px">
-      <i class="el-icon-s-unfold" style="font-size:26px"></i>
+    <el-col :xs="24" :sm="24" class="hidden-sm-and-up">
+      <div class="left-btn">
+        <i class="el-icon-s-unfold" style="font-size:26px;"></i>
+      </div>
+      <div class="smallheader">
+        <div class="sm-logo">
+          <router-link id="sm-title" :to="'/index'">
+            <span class="smalltitle">wl´s blog</span>
+            <span class="motto">go！</span>
+          </router-link>
+        </div>
+      </div>
     </el-col>
-    <el-col :xs="11" :sm="11" class="hidden-sm-and-up">
-      <router-link class id="sm-logo" :to="'/index'">
-        <img src="@/assets/logo.png" />
-      </router-link>
-    </el-col>
-    <el-col :xs="24" :sm="24" :md="4" :lg="4" :xl="1" class="hidden-sm-and-down">
+
+    <el-col class="hidden-xs-only">
       <ul id="nav">
         <li>
           <router-link class="nav-link contribute" :to="'/category/'+'2'">
@@ -47,12 +55,14 @@
         </li>
       </ul>
     </el-col>
+
+    
   </div>
 </template>
 
 <script>
 export default {
-  name: "Header",
+  name: "navbar",
   data() {
     return {
       input: "",
@@ -94,6 +104,7 @@ export default {
   /* float: left; */
   /* line-height: 55px; */
   text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.5s ease-out;
 }
 .header-container.not-top #logo {
   line-height: 24px;
@@ -138,18 +149,22 @@ body #Header {
   -ms-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
 }
+.smallheader {
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+}
+.left-btn {
+  position: absolute;
+  left: 1vh;
+  top: 1vh;
+}
 #sm-logo {
   display: inline-block;
   font-size: 1.5em;
   line-height: 40px;
   color: #2c3e50;
   font-weight: 500;
-}
-#sm-logo img {
-  vertical-align: middle;
-  margin-right: 6px;
-  width: 23px;
-  height: 23px;
 }
 #Header a {
   color: #7e8c8d;
@@ -158,13 +173,9 @@ body #Header {
 #logo img {
   vertical-align: middle;
   margin-right: 6px;
-  width: 40px;
+  width: 40px;    transition: all 0.5s ease-out;
+
   height: 40px;
-  transition: all 0.5s ease-out;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
 }
 body #Header .title {
   color: #4f4f4f;
@@ -235,8 +246,44 @@ body #nav li {
   margin-left: 20px;
 }
 @media screen and (max-width: 768px) {
-  #Header {
+  body #Header {
     padding: 0px 10px !important;
+    height: 36px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 999px) {
+  #logo {
+    font-size: 1em;
+  }
+  body #Header {
+    padding: 5px 20px;
+    height: 50px;
+  }
+  #nav {
+    width: 72%;
+  }
+  body #nav {
+    position: absolute;
+    right: 0;
+    top: 5px;
+  }
+  body #nav li {
+    margin: 0;
+  }
+  #nav li .nav-link.contribute {
+    font-size: 13px;
+    margin-left: 6px;
+  }
+}
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
+  body #nav {
+    position: absolute;
+    right: 0;
+    top: 5px;
+  }
+  #nav li .nav-link.contribute {
+    font-size: 14px;
+    margin-left: 6px;
   }
 }
 </style>

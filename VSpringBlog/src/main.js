@@ -12,7 +12,7 @@ import store from './store'
 import i18n from './lang' // Internationalization
 import '@/icons' // icon
 import '@/permission' // permission control
-// import 'github-markdown-css';
+import 'github-markdown-css';
 // import 'highlight.js/styles/github.css'
 import 'viewerjs/dist/viewer.css'
 import component from '@/views/front/registerComp/component.js'

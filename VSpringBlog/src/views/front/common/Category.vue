@@ -1,6 +1,6 @@
 
 <template>
-  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1" >
+  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" >
     <div class="section-title">
       <div class="title">
         <span class="main-title">博文</span>

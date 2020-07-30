@@ -1,17 +1,21 @@
 <template>
-  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1" >
-    <router-link v-for="article in articleList" :key="article.id"  :to="'/articleDetail/'+article.id">
-      <div class="article art-card art-card-bordered animated bounce" >
+  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+    <router-link
+      v-for="article in articleList"
+      :key="article.id"
+      :to="'/articleDetail/'+article.id"
+    >
+      <div class="article art-card art-card-bordered animated bounce">
         <div class="art-body">
           <div class="art-row">
-            <el-col :xs="9" :sm="7" :md="7" :lg="8" :xl="1" style="overflow:hidden">
+            <el-col :xs="6" :sm="7" :md="7" :lg="8" :xl="6" style="overflow:hidden">
               <img
                 src="https://double.aquestian.cn/2020-07-17-16-36-12-ribbit-mq.jpg"
                 class="art-img"
                 style="width: 100%;"
               />
             </el-col>
-            <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="1">
+            <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="18">
               <div class="live-info">
                 <div class="live-title">{{article.title}}</div>
                 <div
@@ -19,7 +23,7 @@
                 >MQ(消MQ(消MQ(消息MQ()常见的应用场景解析MQ(消息队列)常见的应用场景解析MQ(消息队列)(消息队列)())))MQ(消息队列)</div>
               </div>
             </el-col>
-            <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="1">
+            <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="18">
               <div class="live-down">
                 <div class="live-down-left">
                   <div name="消息队列" class="live-for">
@@ -43,8 +47,17 @@
       </div>
     </router-link>
 
-    <el-col :xs="16" :sm="16" :md="24" :lg="24" :xl="1">
-      <el-pagination background layout="prev, pager, next " :total="100"></el-pagination>
+    <el-col :xs="16" :sm="16" :md="24" :lg="24" :xl="18">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="pageConf.pageCode"
+        :page-size="pageConf.pageSize"
+        layout="total, prev, pager, next, jumper"
+        :total="pageConf.totalPage"
+        class="pageing"
+      ></el-pagination>
     </el-col>
   </el-col>
 </template>
@@ -54,19 +67,36 @@
 import { getArticleListPage } from "@/api/article";
 
 export default {
-  name: "ArticleList",
+  name: "articleList",
   data() {
     return {
       articleList: "",
+      pageConf: {
+        pageCode: 1, //当前页
+        pageSize: 5, //每页显示的记录数
+        totalPage: 10, //总记录数
+      }
     };
   },
   methods: {
+
+    //pageSize改变时触发的函数
+    handleSizeChange(val) {
+      this.pageConf.pageSize = val;
+      this.getArticleListPage();
+    },
+    //当前页改变时触发的函数
+    handleCurrentChange(val) {
+      this.pageConf.pageCode = val;
+      this.getArticleListPage();
+    },
     getArticleListPage() {
       getArticleListPage("article/getArticleListPage", {
-        current: 1,
-        size: 50,
+        current: this.pageConf.pageCode,
+        size: this.pageConf.pageSize,
       }).then((res) => {
         this.articleList = res.data.records;
+        this.pageConf.totalPage = res.data.total
       });
     },
   },
@@ -133,7 +163,6 @@ export default {
 .live-desc {
   color: #9ea7b4;
   margin-top: 20px;
-  line-height: 20px;
   text-indent: 0.6em;
   font-size: 13px;
   max-height: 60px;

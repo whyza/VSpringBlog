@@ -5,7 +5,7 @@
       :sm="7"
       :md="5"
       :lg="3"
-      :xl="1"
+      :xl="4"
       v-for="article in articleList"
       :key="article.id"
       :offset="1"

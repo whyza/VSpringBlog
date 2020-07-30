@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div  style="position:relative">
+    <div style="position:relative">
       <vue-particles
         color="#999"
         :particleOpacity="1"
@@ -17,7 +17,7 @@
         hoverMode="grab"
         :clickEffect="true"
         clickMode="push"
-        style="position:absolute;width:100%;"
+        style="position:absolute;width:100%;z-index:0"
       ></vue-particles>
     </div>
     <!-- <Player /> -->
@@ -26,10 +26,17 @@
 </template>
 
 <script>
+import { queryComment } from "@/api/comment";
+
 export default {
   name: "app",
   data() {
     return {};
+  },
+  provide: function () {
+    return {
+      reload: this.reload,
+    };
   },
   methods: {},
   mounted() {
@@ -51,7 +58,6 @@ export default {
   },
 };
 </script>
-
 <style>
 /* #app {
   background-image: url("@../../images/bg.png");
@@ -100,30 +106,98 @@ body {
 
 @media screen and (min-width: 992px) and (max-width: 1199px) {
   .home-content {
-    width: 992px;
     margin: 15px auto 0;
     margin-bottom: 50px;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .home-content {
-    width: 850px;
     margin: 15px auto 0;
     margin-bottom: 50px;
   }
 }
 @media screen and (min-width: 500px) and (max-width: 768px) {
   .home-content {
-    width: 600px;
     margin: 15px auto 0;
     margin-bottom: 50px;
+  }
+  .live-title {
+    height: 20px;
+    overflow: hidden;
+    font-size: 0.8rem !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .main-wrapper {
+    padding-top: 36px;
+  }
+  .section-title .title .main-title {
+    font-size: 18px !important;
+  }
+  .section-title .title .vertical-line {
+    height: 18px;
+  }
+  .section-title {
+    padding: 0 5px !important;
+    height: 50px !important;
   }
 }
 @media screen and (max-width: 500px) {
   .home-content {
-    width: 480px;
     margin: 15px auto 0;
     margin-bottom: 50px;
+  }
+  .live-info {
+    max-height: 68px !important;
+  }
+  .live-title {
+    height: 20px;
+    overflow: hidden;
+    font-size: 0.8rem !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .live-desc {
+    margin-top: 10px !important;
+    font-size: 0.6rem !important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: normal;
+  }
+  .main-wrapper {
+    padding-top: 36px;
+  }
+  .section-title .title .main-title {
+    font-size: 18px !important;
+  }
+  .section-title .title .vertical-line {
+    height: 18px;
+  }
+  .section-title {
+    padding: 0 5px !important;
+    height: 50px !important;
+  }
+  #art-main .art-title {
+    font-size: 18px !important;
+  }
+  .markdown-body blockquote,
+  .markdown-body details,
+  .markdown-body dl,
+  .markdown-body ol,
+  .markdown-body p,
+  .markdown-body pre,
+  .markdown-body table,
+  .markdown-body ul {
+    font-size: 13px !important;
+  }
+  .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
+  .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html{
+    padding: 8px !important;
+  }
+  .child-box{
+    border: none;
   }
 }
 

@@ -9,7 +9,7 @@
         <!-- Carousel start -->
         <sentences />
 
-        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
+        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
           <carousel />
           <!-- <el-row :gutter="10"> -->
           <category />
@@ -23,7 +23,6 @@
         <!-- </el-col> -->
       </div>
     </div>
-    <!-- main-wrapper -->
     <!-- Footer start -->
     <footers />
   </div>

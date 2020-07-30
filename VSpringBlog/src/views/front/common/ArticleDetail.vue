@@ -1,5 +1,8 @@
 <template>
   <div class="content">
+        <el-backtop target=".content" visibility-height="50">
+      <div class="toTop">Top</div>//滚动点击的元素
+    </el-backtop>
     <div id="art-main">
       <div class="art-title">nginx反向代理解决跨域</div>
       <div class="user-des">
@@ -69,6 +72,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 <script>
@@ -83,7 +87,7 @@ export default {
   data() {
     return {
       content: "",
-      codeStyle: "monokai", //主题
+      codeStyle: "monokai-sublime", //主题
     };
   },
   methods: {
@@ -108,6 +112,10 @@ export default {
 };
 </script>
 <style>
+.toTop {
+  padding: 10px;
+  box-shadow: 0px 0px 5px black;
+}
 .markdown-body pre > code {
   position: relative;
   left: 14px;
@@ -121,7 +129,7 @@ export default {
   padding: 28px 0 0 0 !important;
   background: #21252b;
   border-radius: 5px !important;
-  font: 15px/22px "Microsoft YaHei", Arial, Sans-Serif !important;
+  font: 16px/22px "Consolas" !important;
   line-height: 1.6 !important;
   margin-bottom: 1.6em !important;
   max-width: 100% !important;
@@ -189,6 +197,9 @@ export default {
   word-wrap: break-word;
   /* line-height: 26px; */
 }
+.markdown-body {
+  z-index: auto;
+}
 .content {
   margin-bottom: 10px;
 }
@@ -215,15 +226,18 @@ export default {
 }
 </style>
 <style>
-.markdown-body .v-note-wrapper {
-  min-height: 100px;
+.articlede-body.markdown-body .v-note-wrapper {
   z-index: inherit;
   border: inherit;
+  min-height: 100px !important;
 }
-.markdown-body .v-note-panel .v-note-show .v-show-content {
+.articlede-body .markdown-body .v-note-panel .v-note-show .v-show-content {
   background-color: #fff !important;
 }
 .el-divider--horizontal {
   margin: 10px 0 5px 0;
+}
+.v-note-wrapper {
+  z-index: auto !important;
 }
 </style>

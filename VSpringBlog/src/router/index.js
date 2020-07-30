@@ -9,8 +9,8 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/views/admin/layout/Layout'
 import index from '@/views/front/index'
-import Article from '@/views/front/Article'
-import Artcategory from '@/views/front/Artcategory'
+import articleIndex from '@/views/front/articleIndex'
+import artcategory from '@/views/front/artcategory'
 // import UserManager from '@/views/admin/userManager/UserManager'
 
 
@@ -37,11 +37,11 @@ export const constantRouterMap = [
   {
     path: '/category/:id',
     name: '分类',
-    component: Artcategory
+    component: artcategory
   }, {
     path: '/articleDetail/:id',
     name: '文章详情',
-    component: Article
+    component: articleIndex
   }
   ,
   { path: '/login', component: () => import('@/views/admin/login/index'), hidden: true },
@@ -101,7 +101,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'userManager',
       name: 'userManager',
-      component: () => import('@/views/admin/userManager/UserManager'),
+      component: () => import('@/views/admin/userManager/userManager'),
       meta: { title: '用户管理', icon: 'index' }
     }]
   }, {
@@ -145,4 +145,4 @@ export const asyncRouterMap = [
     }]
   }
 
-]
+]  

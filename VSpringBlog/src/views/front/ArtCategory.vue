@@ -8,10 +8,10 @@
       <div class="home-content">
         <!-- Carousel start -->
         <sentences />
-        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
+        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
           <category />
         </el-col>
-        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="1">
+        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
           <articleList />
         </el-col>
         <!--siderBar start  -->
@@ -22,12 +22,12 @@
     </div>
     <!-- main-wrapper -->
     <!-- Footer start -->
-    <footer />
+    <footers />
   </div>
 </template>
 <script>
 export default {
-  name: "Artcategory"
+  name: "artcategory"
 };
 </script>
 

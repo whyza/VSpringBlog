@@ -1,6 +1,6 @@
 
 <template>
-  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1">
+  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
     <div class="foot">
       <div class="f-span push">Powered with Vue&SpringBoot</div>
 
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "Footer",
+  name: "footers",
 };
 </script>
 

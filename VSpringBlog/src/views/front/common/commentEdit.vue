@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="1">
-      <div class="reply-box-popover">
+    <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+      <div class="reply-box-popover" id="commentform" ref="commentform">
         <el-form
           :model="commentForm"
           status-icon
@@ -9,6 +9,17 @@
           ref="commentForm"
           label-width="100px"
         >
+          <mavon-editor
+            ref="md"
+            style="min-height: 60px"
+            :subfield="false"
+            :ishljs="true"
+            v-model="content"
+            :toolbarsFlag="true"
+            :toolbars="toolbar"
+            placeholder="请输入..."
+          />
+
           <el-form-item prop="userAddress">
             <el-input
               placeholder="请输入网址"
@@ -27,24 +38,13 @@
           </el-form-item>
           <el-form-item prop="userName">
             <el-input
-              type="password"
               v-model="commentForm.userName"
               autocomplete="off"
               prefix-icon="el-icon-user"
               placeholder="用户名"
             ></el-input>
           </el-form-item>
-
-          <mavon-editor
-            ref="md"
-            style="min-height: 60px"
-            :subfield="false"
-            :ishljs="true"
-            v-model="content"
-            :toolbarsFlag="true"
-            :toolbars="toolbar"
-            placeholder="请输入..."
-          />
+          <Vcode style="z-index:9999999" :show="isShow" @success="success" @close="close" />
           <el-form-item>
             <el-button type="primary" @click="submit('commentForm')">发表评论</el-button>
           </el-form-item>
@@ -57,14 +57,25 @@
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import { addComment } from "@/api/comment";
+import { queryComment } from "@/api/comment";
+import Vcode from "vue-puzzle-vcode";
 
 export default {
   name: "commentEdit",
+  props: {
+    parentId: {
+      type: Number,
+      default: null,
+    },
+  },
   components: {
     mavonEditor,
+    Vcode,
   },
   data() {
     return {
+      isShow: false, // 验证码模态框是否出现
+      codeStyle: "monokai", //主题
       content: "",
       select: "HTTP",
       options: [
@@ -106,26 +117,50 @@ export default {
     };
   },
   methods: {
+    showVal() {
+      this.isShow = true;
+    },
+    // 用户通过了验证
+    success(msg) {
+      let _this = this;
+      _this.isShow = false; // 通过验证后，需要手动隐藏模态框
+      let comment = {
+        articleId: _this.$route.params.id,
+        userName: _this.commentForm.userName,
+        userAddress: _this.commentForm.userAddress,
+        content: _this.$refs.md.d_render,
+        parentId: _this.parentId,
+      };
+      addComment("/comments/addComments", comment).then((res) => {
+        console.log(res);
+        _this.$notify({
+          title: res.code === 200 ? "成功" : "失败",
+          message: res.msg,
+          type: res.code === 200 ? "success" : "warning",
+        });
+        //添加成功 重新加载数据
+        _this.$parent.queryCommentByArticleId();
+        if (_this.parentId != 0) {
+          document
+            .getElementById("scollto" + _this.parentId)
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+        } else {
+          document
+            .getElementById("comment")
+            .scrollIntoView({ block: "start", behavior: "smooth" });
+        }
+      });
+    },
+    // 用户点击遮罩层，应该关闭模态框
+    close() {
+      this.isShow = false;
+    },
     // 提交
     submit(formName) {
       var _this = this;
       _this.$refs[formName].validate((valid) => {
         if (valid) {
-          _this.loading = true;
-          let comment = {
-            articleId: this.$route.params.id,
-            userName: _this.commentForm.userName,
-            userAddress: _this.commentForm.userAddress,
-            content: _this.$refs.md.d_render,
-          };
-          addComment("/comments/addComments", comment).then((res) => {
-            _this.$notify({
-              title: res.code === 200 ? "成功" : "失败",
-              message: res.msg,
-              type: res.code === 200 ? "success" : "warning",
-            });
-            _this.loading = false;
-          });
+          _this.showVal();
         } else {
           _this.$message.error("失败！");
           return false;
@@ -149,6 +184,6 @@ export default {
   background-color: #fff;
 }
 .el-form-item__content button {
-  margin-top: ;
+  margin-top: 10px;
 }
 </style>
