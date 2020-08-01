@@ -7,7 +7,7 @@
     <div class="main-wrapper">
       <div class="home-content">
         <!-- Carousel start -->
-        <sentences />
+        <sentences id="sentences" />
 
         <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
           <carousel />
@@ -15,7 +15,7 @@
           <category />
           <!-- </el-row> -->
           <!-- ArticleList start -->
-          <articleList />
+          <articleList :isIndexPage=true />
         </el-col>
         <!--siderBar start  -->
         <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->

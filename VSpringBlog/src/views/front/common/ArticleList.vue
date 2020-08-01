@@ -9,11 +9,7 @@
         <div class="art-body">
           <div class="art-row">
             <el-col :xs="6" :sm="7" :md="7" :lg="8" :xl="6" style="overflow:hidden">
-              <img
-                src="https://double.aquestian.cn/2020-07-17-16-36-12-ribbit-mq.jpg"
-                class="art-img"
-                style="width: 100%;"
-              />
+              <img :src="article.articleThumbnail" class="art-img" style="width: 100%;" />
             </el-col>
             <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="18">
               <div class="live-info">
@@ -26,18 +22,19 @@
             <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="18">
               <div class="live-down">
                 <div class="live-down-left">
-                  <div name="消息队列" class="live-for">
-                    <i class="fa fa-tags" style="color: rgb(213, 43, 179);"></i> 消息队列
+                  <div class="live-for" v-for="tags in article.sysTagsList" :key="tags.id">
+                    <i class="fa fa-tags" style="color: rgb(213, 43, 179);"></i>
+                    <span style="font-size:13px">{{tags.tagsName}}</span>
                   </div>
                 </div>
                 <div class="live-down-right">
                   <div class="live-name">
                     <i class="fa fa-user"></i>
-                    <span>aqian666</span>
+                    <span>{{article.userName}}</span>
                   </div>
                   <div class="live-time">
                     <i class="fa fa-clock-o"></i>
-                    <span>2020-07-17 16:56:00</span>
+                    <span>{{article.creatTime|changeTime}}</span>
                   </div>
                 </div>
               </div>
@@ -64,10 +61,18 @@
 
 
 <script>
-import { getArticleListPage } from "@/api/article";
+import { getArticleListPage, getArticleListByCategoryId } from "@/api/article";
+import { formatTime } from "@/utils/index";
 
 export default {
   name: "articleList",
+
+  props: {
+    isIndexPage: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       articleList: "",
@@ -75,20 +80,37 @@ export default {
         pageCode: 1, //当前页
         pageSize: 5, //每页显示的记录数
         totalPage: 10, //总记录数
-      }
+      },
     };
   },
   methods: {
-
     //pageSize改变时触发的函数
     handleSizeChange(val) {
       this.pageConf.pageSize = val;
-      this.getArticleListPage();
+      this.changeArticleListDetail();
+      this.scollToSentences();
     },
     //当前页改变时触发的函数
     handleCurrentChange(val) {
       this.pageConf.pageCode = val;
-      this.getArticleListPage();
+      this.changeArticleListDetail();
+      this.scollToSentences();
+    },
+    scollToSentences() {
+      document
+        .getElementById("sentences")
+        .scrollIntoView({ block: "start", behavior: "smooth" });
+    },
+    getArticleListByCategoryId() {
+      getArticleListByCategoryId("article/getArticleListByCategoryId", {
+        current: this.pageConf.pageCode,
+        size: this.pageConf.pageSize,
+        categoryId: this.$route.params.id,
+      }).then((res) => {
+        this.articleList = res.data.records;
+        this.pageConf.totalPage = res.data.total;
+      });
+      console.log(formatTime());
     },
     getArticleListPage() {
       getArticleListPage("article/getArticleListPage", {
@@ -96,17 +118,33 @@ export default {
         size: this.pageConf.pageSize,
       }).then((res) => {
         this.articleList = res.data.records;
-        this.pageConf.totalPage = res.data.total
+        this.pageConf.totalPage = res.data.total;
       });
+    },
+    changeArticleListDetail() {
+      if (this.isIndexPage) {
+        this.getArticleListPage();
+      } else {
+        this.getArticleListByCategoryId();
+      }
     },
   },
   created() {
-    this.getArticleListPage();
+    this.changeArticleListDetail();
+  },
+  watch: {
+    $route: {
+      handler() {
+        this.id = this.$route.params.id;
+        this.changeArticleListDetail();
+      },
+      deep: true,
+    },
   },
 };
 </script>
 
-<style  scoped>
+<style scoped>
 /* 文章card */
 .article {
   height: 100%;
@@ -115,14 +153,17 @@ export default {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
+
 .article:hover {
   box-shadow: 0 1px 6px hsla(184, 100%, 50%, 0.5);
   border-color: #eee;
 }
+
 .art-card-bordered {
   border: 1px solid #dddee1;
   border-color: #e9eaec;
 }
+
 .art-card {
   background: #fff;
   border-radius: 4px;
@@ -130,14 +171,17 @@ export default {
   position: relative;
   transition: all 0.2s ease-in-out;
 }
+
 .art-card,
 .art-card-bordered {
   border: 1px solid #dcdee2;
   border-color: #e8eaec;
 }
+
 .art-body {
   padding: 16px;
 }
+
 .art-row {
   position: relative;
   margin-left: 0;
@@ -160,6 +204,7 @@ export default {
   transition: all 0.6s;
   font-weight: 700;
 }
+
 .live-desc {
   color: #9ea7b4;
   margin-top: 20px;
@@ -167,17 +212,21 @@ export default {
   font-size: 13px;
   max-height: 60px;
 }
+
 .live-down {
   margin-top: -10px;
 }
+
 .live-for {
   float: left;
   margin-left: 15px;
 }
+
 .live-name {
   width: 147px;
   font-size: 15px;
 }
+
 .live-time {
   color: #9ea7b4;
   width: 147px;
@@ -190,22 +239,27 @@ export default {
   margin-top: 20px;
   float: left;
 }
+
 .live-down-right {
   margin-top: 20px;
   float: right;
 }
+
 .art-img {
   overflow: hidden;
   padding-top: 5px;
   transition: all 0.6s;
 }
+
 .article:hover .art-img {
   transform: scale(1.05);
 }
+
 .article:hover .live-title {
   color: #409eff;
   padding-left: 10px;
 }
+
 /* 分页 */
 .page {
   margin-top: 40px;

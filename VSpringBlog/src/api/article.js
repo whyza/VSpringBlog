@@ -24,3 +24,11 @@ export function getArticleListPage(url, params) {
     params: params
   })
 }
+
+export function getArticleListByCategoryId(url, params) {
+  return request({
+    url: url,
+    method: 'get',
+    params: params
+  })
+}

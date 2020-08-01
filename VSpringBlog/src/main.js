@@ -19,6 +19,11 @@ import component from '@/views/front/registerComp/component.js'
 import VueParticles from 'vue-particles'
 import animated from 'animate.css'
 import Viewer from 'v-viewer'
+import { format } from 'timeago.js';
+//定义全局的过滤器 "changeTime":改变时间为几周前
+Vue.filter('changeTime', function(dateStr) {
+    return format(dateStr, 'zh_CN');
+})
 Vue.use(Viewer)
 Vue.use(animated)
 Vue.use(VueParticles)

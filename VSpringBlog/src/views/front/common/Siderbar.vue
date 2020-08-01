@@ -1,5 +1,5 @@
 <template>
-  <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down">
+  <el-col :md="6" :lg="6" :xl="1" class="hidden-sm-and-down">
     <div id="siderBar-main">
       <div class="side-about">
         <div class="about-me">
@@ -43,10 +43,11 @@
           </div>
         </div>
       </div>
+      <!-- <div class="about_me" ref="aboutMe"></div> -->
 
       <!-- 推荐阅读 -->
       <transition name="el-fade-in-linear">
-        <div id="other-sider">
+        <div id="other-sider" class="recommendRead" ref="recommendRead">
           <div class="side-about">
             <div class="about-me">
               <p>
@@ -131,6 +132,7 @@
           </div>
         </div>
       </transition>
+
     </div>
   </el-col>
 </template>
@@ -138,11 +140,35 @@
 <script>
 export default {
   name: "siderBar",
+  data() {
+    return {};
+  },
+  methods: {
+    toScoll() {
+      let recommendRead = this.$refs.recommendRead;
+      let scrollTop = document.documentElement.scrollTop;
+      if (scrollTop >= 400) {
+        recommendRead.style.top = (scrollTop-60) + "px";
+      } else if (scrollTop < 400) {
+        recommendRead.style.top = "285px";
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.toScoll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.toScoll);
+  },
 };
 </script>
 <style>
 </style>
 <style scoped>
+.recommendRead {
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+}
 .isFixed {
   position: fixed;
   background-color: #fff;
@@ -326,6 +352,6 @@ p {
 }
 #siderBar-main {
   padding-left: 13px;
-  position: absolute;
+  position: relative;
 }
 </style>

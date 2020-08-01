@@ -12,11 +12,12 @@
           <category />
         </el-col>
         <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
-          <articleList />
+          <articleDetail />
+          <comment />
         </el-col>
         <!--siderBar start  -->
         <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->
-          <siderBar />
+        <siderBar />
         <!-- </el-col> -->
       </div>
     </div>
@@ -27,7 +28,7 @@
 </template>
 <script>
 export default {
-  name: "artcategory"
+  name: "articleDetailIndex",
 };
 </script>
 

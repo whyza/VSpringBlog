@@ -5,6 +5,9 @@ import footers from "@/views/front/common/footers";
 import siderBar from "@/views/front/common/siderBar";
 import category from "@/views/front/common/category";
 import sentences from "@/views/front/common/sentences";
+import articleDetail from "@/views/front/common/articleDetail";
+import comment from "@/views/front/common/comment";
+
 export default (Vue) => {
   // 注册组件
   Vue.component('navbar', navbar);
@@ -14,4 +17,8 @@ export default (Vue) => {
   Vue.component('siderBar', siderBar);
   Vue.component('category', category);
   Vue.component('sentences', sentences);
+  Vue.component('articleDetail', articleDetail);
+  Vue.component('comment', comment);
+
+
 }
