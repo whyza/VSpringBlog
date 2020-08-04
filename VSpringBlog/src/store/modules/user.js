@@ -7,7 +7,7 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    userId:""
+    userId: ""
   },
 
   mutations: {
@@ -22,6 +22,7 @@ const user = {
       state.avatar = avatar
     },
     SET_ROLES: (state, roles) => {
+      localStorage.setItem('roles', roles);
       state.roles = roles
     },
     SET_USERID: (state, userId) => {
@@ -92,6 +93,9 @@ const user = {
     FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
+        if (localStorage.getItem("rolse")) {
+          localStorage.removeItem("roles")
+        }
         removeToken()
         resolve()
       })

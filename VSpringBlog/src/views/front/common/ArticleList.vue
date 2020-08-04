@@ -3,13 +3,18 @@
     <router-link
       v-for="article in articleList"
       :key="article.id"
-      :to="'/articleDetail/'+article.id"
+      :to="'/category/'+article.categoryName+'/'+article.id"
     >
       <div class="article art-card art-card-bordered animated bounce">
         <div class="art-body">
           <div class="art-row">
             <el-col :xs="6" :sm="7" :md="7" :lg="8" :xl="6" style="overflow:hidden">
-              <img :src="article.articleThumbnail" class="art-img" style="width: 100%;" />
+              <el-image :src="article.articleThumbnail" class="art-img" style="width: 100%;">
+                <div slot="placeholder" class="image-slot">
+                  加载中
+                  <span class="dot">...</span>
+                </div>
+              </el-image>
             </el-col>
             <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="18">
               <div class="live-info">
@@ -62,7 +67,6 @@
 
 <script>
 import { getArticleListPage, getArticleListByCategoryId } from "@/api/article";
-import { formatTime } from "@/utils/index";
 
 export default {
   name: "articleList",
@@ -110,7 +114,6 @@ export default {
         this.articleList = res.data.records;
         this.pageConf.totalPage = res.data.total;
       });
-      console.log(formatTime());
     },
     getArticleListPage() {
       getArticleListPage("article/getArticleListPage", {

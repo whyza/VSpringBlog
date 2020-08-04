@@ -1,5 +1,5 @@
 <template>
-  <div class="insentence">
+  <div class="notice">
     <el-carousel height="20px" direction="vertical" :autoplay="true">
       <el-carousel-item v-for="item in 3" :key="item">
         <div>
@@ -14,11 +14,11 @@
 </template>
 <script>
 export default {
-  name: "sentences",
+  name: "notice",
 };
 </script>
 <style  scoped>
-.insentence {
+.notice {
   background: #fff;
   border-radius: 5px;
   padding: 6px 0 6px 15px;

@@ -7,3 +7,12 @@ export function getAllCategory(url) {
     method: 'get'
   })
 }
+
+export function getCategoryNameById(url, params) {
+  return request({
+    url: url,
+    method: 'get',
+    params: params
+  })
+}
+

@@ -7,7 +7,7 @@
     <div class="main-wrapper">
       <div class="home-content">
         <!-- Carousel start -->
-        <sentences />
+        <notice />
         <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
           <category />
         </el-col>

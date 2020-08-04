@@ -8,12 +8,9 @@
       <div class="home-content">
         <!-- Carousel start -->
         <notice />
+
         <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
-          <category />
-        </el-col>
-        <el-col :xs="24" :sm="24" :md="17" :lg="18" :xl="18">
-          <articleDetail />
-          <comment />
+          <timeline />
         </el-col>
         <!--siderBar start  -->
         <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->
@@ -28,7 +25,7 @@
 </template>
 <script>
 export default {
-  name: "articleDetailIndex",
+  name: "timelinePageIndex",
 };
 </script>
 

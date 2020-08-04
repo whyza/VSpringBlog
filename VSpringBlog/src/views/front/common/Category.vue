@@ -1,9 +1,9 @@
 
 <template>
-  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" >
+  <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
     <div class="section-title">
       <div class="title">
-        <span class="main-title">博文</span>
+        <span class="main-title">{{categoryName}}</span>
         <span class="vertical-line"></span>
         <span class="sub-title">Articles</span>
         <span class="view-more"></span>
@@ -13,8 +13,40 @@
 </template>
 
 <script>
+import { getCategoryNameById } from "@/api/category";
 export default {
-  name: "category"
+  name: "category",
+  data() {
+    return { categoryName: "博文" };
+  },
+  methods: {
+    getCategoryName() {
+      if (
+        this.$route.params.id !== undefined &&
+        this.$route.params.id !== null
+      ) {
+        getCategoryNameById("/category/getCategoryNameById", {
+          categoryId: this.$route.params.id,
+        }).then((res) => {
+          if (res.data) {
+            this.categoryName = res.data.categoryName;
+          }
+        });
+      }
+    },
+  },
+  created() {
+    this.getCategoryName();
+  },
+  watch: {
+    $route: {
+      handler() {
+        this.id = this.$route.params.id;
+        this.getCategoryName();
+      },
+      deep: true,
+    },
+  },
 };
 </script>
 

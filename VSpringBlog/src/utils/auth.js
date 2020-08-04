@@ -14,3 +14,7 @@ export function setToken(token) {
 export function removeToken() {
   return localStorage.removeItem(TokenKey)
 }
+export function getRoles() {
+  // return Cookies.get(TokenKey)
+  return localStorage.getItem("roles")
+}

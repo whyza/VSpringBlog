@@ -11,6 +11,9 @@ import Layout from '@/views/admin/layout/Layout'
 import index from '@/views/front/index'
 import articleDetailIndex from '@/views/front/articleDetailIndex'
 import articleCategoryIndex from '@/views/front/articleCategoryIndex'
+import timelinePageIndex from '@/views/front/timelinePageIndex'
+
+
 // import UserManager from '@/views/admin/userManager/UserManager'
 
 
@@ -36,15 +39,17 @@ export const constantRouterMap = [
   },
   {
     path: '/category/:id',
-    name: '分类',
+    name: 'category',
     component: articleCategoryIndex
   }, {
-    path: '/articleDetail/:id',
-    name: '文章详情',
+    path: '/category/:category/:id',
+    name: 'detail',
     component: articleDetailIndex
-  }
-  ,
-  { path: '/login', component: () => import('@/views/admin/login/index'), hidden: true },
+  }, {
+    path: '/timeline',
+    name: 'timeline',
+    component: timelinePageIndex
+  }, { path: '/login', component: () => import('@/views/admin/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/admin/404'), hidden: true },
   { path: '*', component: () => import('@/views/admin/404'), hidden: true },
 
@@ -76,7 +81,7 @@ export const asyncRouterMap = [
   {
     path: '/article',
     component: Layout,
-    name: '文章管理',
+    name: 'article',
     redirect: '/article/articleList',
     meta: { title: '文章管理', icon: 'index', roles: ['admin'] },
     children: [{
@@ -89,15 +94,20 @@ export const asyncRouterMap = [
       name: '/article/addArticle',
       component: () => import('@/views/admin/articlemanager/addArticle'),
       meta: { title: '添加文章', icon: 'index' }
+    }, {
+      path: 'editArticle/:id',
+      name: '/article/editArticle',
+      component: () => import('@/views/admin/articlemanager/addArticle'),
+      hidden: true,
+      meta: { title: '编辑文章', icon: 'index' }
     }]
   }
   , {
-    path: '/userManager',
+    path: '/user',
     component: Layout,
-    redirect: '/userManager',
-    name: '用户管理',
-    meta: { title: '首页', icon: 'index', roles: ['admin'] },
-
+    // redirect: '/userManager',
+    name: 'user',
+    meta: { title: '用户管理', icon: 'index', roles: ['admin'] },
     children: [{
       path: 'userManager',
       name: 'userManager',
@@ -105,10 +115,10 @@ export const asyncRouterMap = [
       meta: { title: '用户管理', icon: 'index' }
     }]
   }, {
-    path: '/commentManager',
+    path: '/comment',
     component: Layout,
-    redirect: '/commentManager',
-    name: '评论管理',
+    // redirect: '/commentManager',
+    name: 'comment',
     meta: { title: '首页', icon: 'index', roles: ['admin'] },
 
     children: [{
@@ -118,12 +128,11 @@ export const asyncRouterMap = [
       meta: { title: '评论管理', icon: 'index' }
     }]
   }, {
-    path: '/categoryManager',
+    path: '/artCategory',
     component: Layout,
-    redirect: '/categoryManager',
-    name: '分类管理',
+    // redirect: '/categoryManager',
+    name: 'artCategory',
     meta: { title: '首页', icon: 'index', roles: ['admin'] },
-
     children: [{
       path: 'categoryManager',
       name: 'categoryManager',
@@ -131,18 +140,29 @@ export const asyncRouterMap = [
       meta: { title: '分类管理', icon: 'index' }
     }]
   }, {
-    path: '/dataStatistics',
+    path: '/data',
     component: Layout,
-    redirect: '/dataStatistics',
-    name: '数据统计',
+    // redirect: '/dataStatistics',
+    name: 'data',
     meta: { title: '首页', icon: 'index', roles: ['admin'] },
-
     children: [{
       path: 'dataStatistics',
       name: 'dataStatistics',
       component: () => import('@/views/admin/dashboard/index'),
       meta: { title: '数据统计', icon: 'index' }
     }]
-  }
+  }, {
+    path: '/druid',
+    component: Layout,
+    // redirect: '/druid',
+    name: 'druid',
+    meta: { title: 'druid监控', icon: 'index', roles: ['admin'] },
+    children: [{
+      path: 'druidmanager',
+      name: 'druidmanager',
+      component: () => import('@/views/admin/druid/index'),
+      meta: { title: 'druid监控', icon: 'index' }
+    }]
+  },
 
 ]

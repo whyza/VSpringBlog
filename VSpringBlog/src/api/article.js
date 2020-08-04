@@ -9,7 +9,7 @@ export function addArticle(url, data) {
   })
 }
 
-export function getArticleContentByUserId(url, articleId) {
+export function getArticleContentByArticleId(url, articleId) {
   return request({
     url: url,
     method: 'GET',

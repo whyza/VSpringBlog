@@ -12,16 +12,39 @@
           <el-input v-model="articleForm.title" size="medium"></el-input>
         </el-form-item>
         <el-form-item label="文章分类" prop="category">
-          <el-col :xs="7" :sm="7" :md="5" :lg="4" :xl="3">
-            <el-autocomplete
-              class="inline-input"
-              v-model="articleForm.category"
-              :fetch-suggestions="querySearch"
-              placeholder="请输入内容"
-              :trigger-on-focus="false"
-              @select="handleSelect"
-            ></el-autocomplete>
-          </el-col>
+          <el-cascader
+            :options="categoryList"
+            :props="{checkStrictly: true,value: 'id',label: 'categoryName',children: 'sysCategoryList',expandTrigger: 'hover'}"
+            v-model="selectedOptions"
+            :placeholder="chosecategory"
+            @change="handleChange"
+            :show-all-levels="false"
+            clearable
+          ></el-cascader>
+        </el-form-item>
+        <el-form-item label="缩略图" prop="article_thumbnail">
+          <el-upload
+            :limit="1"
+            drag
+            action="actionUp"
+            :before-upload="beforeUpload"
+            :http-request="fileRequest"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove"
+            :on-exceed="outLimit"
+            :file-list="fileList[0]"
+            list-type="picture"
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将文件拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload>
+          <el-dialog :visible.sync="dialogVisible">
+            <img width="100%" :src="dialogImageUrl" alt />
+          </el-dialog>
         </el-form-item>
         <div class="tags-form">
           <el-form-item label="文章标签" prop="tags">
@@ -59,14 +82,13 @@
       </div>
       <div class="markdown-edit">
         <el-form-item prop="title">
-          <div class="markdown" style="margin-left:0">
+          <div class="markdown" style="">
             <div class="container">
-                              <!-- codeStyle="color-brewer monokai-sublime monokai" -->
+              <!-- codeStyle="color-brewer monokai-sublime monokai" -->
               <mavon-editor
                 v-model="articleForm.content"
                 ref="md"
                 @imgAdd="$imgAdd"
-                @change="change"
                 :navigation="true"
                 codeStyle="monokai"
                 placeholder="请输入..."
@@ -78,7 +100,12 @@
       </div>
       <div class="addArticle-btn">
         <el-form-item>
-          <el-button type="primary" @click="submit('articleForm')" :loading="loading">发布文章</el-button>
+          <el-button
+            ref="submitbtn"
+            type="primary"
+            @click="submit('articleForm')"
+            :loading="loading"
+          >{{submitbtnval}}</el-button>
         </el-form-item>
       </div>
     </el-form>
@@ -88,11 +115,18 @@
 <script>
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
-import { addArticle } from "@/api/article";
+import { uploadImg } from "@/api/uploadfile";
+import { getArticleContentByArticleId, addArticle } from "@/api/article";
+import { getAllCategory } from "@/api/category";
 
 export default {
   name: "",
-  props: [],
+  props: {
+    isEditPage: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
     mavonEditor,
   },
@@ -105,6 +139,9 @@ export default {
         category: "",
         uinputtags: "",
       },
+      categoryList: [],
+      chosecategory: "请选择",
+      submitbtnval: "发布文章",
       tags: [],
       rules: {
         title: [
@@ -116,108 +153,80 @@ export default {
             trigger: "blur",
           },
         ],
-        category: [
-          { required: true, message: "请输入文章分类", trigger: "blur" },
-          {
-            min: 3,
-            max: 50,
-            message: "长度在 3 到 10 个字符",
-            trigger: "blur",
-          },
-        ],
       },
-      restaurants: [],
+      selectedOptions: [5],
+      dialogImageUrl: "",
+      dialogVisible: false,
+      fileList: [],
+      articleThumbnail: "",
     };
   },
   methods: {
-    // 将图片上传到服务器，返回地址替换到md中
+    // 绑定@imgAdd event
     $imgAdd(pos, $file) {
+      // 第一步.将图片上传到服务器.
       let formdata = new FormData();
-      this.$upload
-        .post("/上传接口地址", formdata)
-        .then((res) => {
-          console.log(res.data);
-          this.$refs.md.$img2Url(pos, res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    // 所有操作都会被解析重新渲染
-    change(value, render) {
-      // render 为 markdown 解析后的结果[html]c
-      this.html = render;
+      formdata.append("multipartFile", $file);
+      uploadImg("/uploadFile", formdata).then((res) => {
+        this.$refs.md.$img2Url(pos, res.data);
+      });
     },
     // 提交
     submit(formName) {
       var _this = this;
-      this.$refs[formName].validate((valid) => {
+      _this.$refs[formName].validate((valid) => {
         let tagData = [];
-        if (this.tags && this.tags.length > 0) {
-          let tags = this.tags;
+        if (_this.tags && _this.tags.length > 0) {
+          let tags = _this.tags;
           for (let tagIndex in tags) {
-            tagData.push(tags[tagIndex].name);
+            tagData.push({ tagsName: tags[tagIndex].name });
           }
         }
-
         if (valid) {
-          this.loading = true;
-          let articleForm = this.articleForm;
+          let oldarticleThumbnail = _this.fileList[0].url;
+          let newarticleThumbnail = _this.articleThumbnail;
+          let articelth =
+            newarticleThumbnail === undefined || newarticleThumbnail === ""
+              ? oldarticleThumbnail
+              : newarticleThumbnail;
+          _this.loading = true;
+          let articleForm = _this.articleForm;
           let data = {
             title: articleForm.title,
-            mrdText: _this.html,
+            mrdText: _this.$refs.md.d_value,
             htmlText: _this.$refs.md.d_render,
             category: articleForm.category,
             uid: 1,
             state: 0,
-            tags: tagData,
+            sysTagsList: tagData,
+            articleThumbnail: articelth,
           };
-          // let tags = this.tags;
-          addArticle("/article/addArticle", data).then((res) => {
-            this.$notify({
-              title: res.code === 200 ? "成功" : "失败",
-              message: res.message,
-              type: res.code === 200 ? "success" : "warning",
+          let url = "/article/addArticle";
+          if (_this.$route.params.id) {
+            url = "/article/updateArticle";
+            data["id"] = _this.$route.params.id;
+          }
+          addArticle(url, data)
+            .then((res) => {
+              this.$notify({
+                type: res.code === 200 ? "success" : "warning",
+                title: res.code === 200 ? "成功" : "失败",
+                message:
+                  '你可以点击<span style="color:#409EFF;cursor:pointer" id="goto"/>这里</span>查看刚刚修改的文章哦！',
+                position: "bottom-right",
+                duration: "6000",
+                dangerouslyUseHTMLString: true,
+              });
+              _this.loading = false;
+            })
+            .catch(function (error) {
+              _this.loading = false;
             });
-            this.loading = false;
-          });
         } else {
-          this.$message.error("失败！");
+          _this.$message.error("失败！");
           return false;
         }
       });
-    },
-    createFilter(queryString) {
-      return (restaurant) => {
-        return (
-          restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) ===
-          0
-        );
-      };
-    },
-    loadAll() {
-      return [
-        { value: "三全鲜食（北新泾店）", address: "长宁区新渔路144号" },
-        {
-          value: "Hot honey 首尔炸鸡（仙霞路）",
-          address: "上海市长宁区淞虹路661号",
-        },
-        {
-          value: "新旺角茶餐厅",
-          address: "上海市普陀区真北路988号创邑金沙谷6号楼113",
-        },
-      ];
-    },
-    querySearch(queryString, cb) {
-      var restaurants = this.restaurants;
-      var results = queryString
-        ? restaurants.filter(this.createFilter(queryString))
-        : restaurants;
-      // 调用 callback 返回建议列表的数据
-      cb(results);
-    },
-    handleSelect(item) {
-      console.log(item);
     },
     entertoadd() {
       if (this.articleForm.uinputtags && this.articleForm.uinputtags != null) {
@@ -228,22 +237,155 @@ export default {
     deleteTags(tag) {
       console.log(this.tags.splice(this.tags.indexOf(tag), 1));
     },
+    getContent() {
+      let _this = this;
+      getArticleContentByArticleId("article/getArticleContentByArticleId", {
+        articleId: _this.$route.params.id,
+      }).then((res) => {
+        if (res.data === undefined || res.data === null) {
+          _this.$router.push("/404");
+        }
+        let articleForm = {
+          title: res.data.title,
+          content: res.data.mrdText,
+          category: res.data.title,
+          uinputtags: "",
+        };
+        _this.articleForm = articleForm;
+        let tags = res.data.sysTagsList;
+        let url = res.data.articleThumbnail;
+        var index = url.lastIndexOf("/");
+        _this.fileList[0] = [
+          { name: url.substring(index + 1, url.length), url: url },
+        ];
+        //拿出标签
+        for (let tagIndex in tags) {
+          _this.tags.push({ name: tags[tagIndex].tagsName });
+        }
+        _this.chosecategory = res.data.categoryName;
+      });
+    },
+    getAllCategory() {
+      getAllCategory("category/getAllCategory").then((res) => {
+        this.categoryList = res.data;
+      });
+    },
+    handleChange(val) {
+      console.log(val);
+    },
+    handleRemove(file, fileList) {
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    beforeUpload(file) {
+      const isMatch =
+        file.type === "image/jpeg" ||
+        file.type === "image/jpg" ||
+        file.type === "image/png" ||
+        file.type === "image/gif" ||
+        file.type === "image/bmp";
+      const isLt2M = file.size / 1024 / 1024 < 1;
+
+      if (!isMatch) {
+        this.$message.error("图片格式不匹配");
+      }
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 1MB!");
+      }
+      return isMatch && isLt2M;
+    },
+    fileRequest(item) {
+      let uploadData = new FormData();
+      uploadData.append("multipartFile", item.file);
+      uploadImg("/uploadFile", uploadData).then((res) => {
+        this.articleThumbnail = res.data.url;
+        let url = res.data.url;
+        var index = url.lastIndexOf("/");
+        this.fileList[0] = [
+          { name: url.substring(index + 1, url.length), url: url },
+        ];
+      });
+    },
+    outLimit() {
+      this.$message.error("只能上传一个哦！");
+    },
+  },
+  created() {
+    this.getAllCategory();
+    if (this.$route.params.id !== null && this.$route.params.id !== undefined) {
+      this.getContent();
+      this.submitbtnval = "更新文章";
+    } else {
+      this.submitbtnval = "发布文章";
+    }
   },
   mounted() {
-    this.restaurants = this.loadAll();
+    document.addEventListener("mouseup", (e) => {
+      let _track = document.getElementById("goto");
+      if (_track) {
+        if (_track.contains(e.target)) {
+          if (localStorage.getItem("path")) {
+            this.$router.push(localStorage.getItem("path"));
+          }
+        }
+      }
+    });
+  },
+  watch: {
+    $route: {
+      handler() {
+        if (
+          this.$route.params.id !== null &&
+          this.$route.params.id !== undefined
+        ) {
+          this.getContent();
+          this.submitbtnval = "更新文章";
+        } else {
+          let articleForm = {
+            title: "",
+            content: "",
+            category: "",
+            uinputtags: "",
+          };
+          this.selectedOptions = [];
+          this.fileList[0] = [];
+          this.chosecategory = "请选择";
+          this.articleForm = articleForm;
+          this.submitbtnval = "发布文章";
+        }
+        this.tags = [];
+      },
+      deep: true,
+    },
   },
 };
 </script>
 
 
 <style>
-.articleForm {
-  padding: 10px 25px;
+.el-upload-list--picture .el-upload-list__item {
+  height: 120px;
+}
+.el-upload-list--picture .el-upload-list__item-thumbnail {
+  width: 150px;
+  height: 100px;
+}
+.el-upload-dragger .el-icon-upload {
+  font-size: 40px;
+  margin: 20px 0 0px;
+}
+.el-upload-dragger {
+  width: 205px;
+  height: 120px;
+}
+.el-upload-dragger .el-upload__text {
+  font-size: 12px;
 }
 .markdown-edit .el-form-item__content,
 .addArticle-btn .el-form-item__content {
-  margin-left: 0 !important;
-  margin-top: 10px;
+  margin: 7px 7px 0 7px !important;
 }
 .articleForm .el-form-item {
   margin-bottom: 20px;
@@ -253,7 +395,8 @@ export default {
 }
 .headform {
   background: #fff;
-  padding: 20px;
+  padding: 10px;
+  margin: 7px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
 }
 .tags-form .el-input__suffix {
