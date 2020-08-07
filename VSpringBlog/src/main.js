@@ -13,7 +13,8 @@ import i18n from './lang' // Internationalization
 import '@/icons' // icon
 import '@/permission' // permission control
 import 'github-markdown-css';
-// import 'highlight.js/styles/github.css'
+import 'highlight.js/styles/solarized-dark.css'
+// import 'highlight.js/styles/monokai-sublime.css'
 import 'viewerjs/dist/viewer.css'
 import component from '@/views/front/registerComp/component.js'
 import VueParticles from 'vue-particles'
@@ -24,6 +25,8 @@ import { format } from 'timeago.js';
 Vue.filter('changeTime', function(dateStr) {
     return format(dateStr, 'zh_CN');
 })
+import outline from 'vue-outline'
+Vue.use(outline)
 Vue.use(Viewer)
 Vue.use(animated)
 Vue.use(VueParticles)

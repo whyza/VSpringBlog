@@ -17,7 +17,7 @@
         hoverMode="grab"
         :clickEffect="true"
         clickMode="push"
-        style="position:absolute;width:100%;z-index:0"
+        style="position:absolute;width:100%;z-index:-2"
       ></vue-particles>
     </div>
     <!-- <Player /> -->
@@ -41,10 +41,7 @@ export default {
   methods: {},
   mounted() {
     if (window.performance.navigation.type == 1) {
-      console.log("页面被刷新");
     } else {
-      console.log("首次被加载");
-
       this.$notify({
         type: "success",
         title: "Hello 欢迎：游客",
@@ -87,7 +84,7 @@ body {
   height: auto;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
+  /* background-color: #f5f5f5; */
   font-family: Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB",
     "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
@@ -193,10 +190,10 @@ body {
     font-size: 13px !important;
   }
   .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
-  .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html{
+  .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
     padding: 8px !important;
   }
-  .child-box{
+  .child-box {
     border: none;
   }
 }

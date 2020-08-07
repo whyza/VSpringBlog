@@ -1,8 +1,9 @@
 <template>
   <div id="Header" ref="header" class="animated fadeInDown header-container">
+    <div class="line"></div>
     <el-col :sm="24" :md="6" :lg="4" :xl="18" class="hidden-xs-only">
       <div class="h-logo">
-        <router-link class="router-link-active" id="logo" :to="'/index'">
+        <router-link class="router-link-active" id="logo" :to="'/'">
           <img src="@/assets/logo.png" />
           <span class="title">wl´s blog</span>
           <span class="motto">go！</span>
@@ -15,7 +16,7 @@
       </div>
       <div class="smallheader">
         <div class="sm-logo">
-          <router-link id="sm-title" :to="'/index'">
+          <router-link id="sm-title" :to="'/'">
             <span class="smalltitle">wl´s blog</span>
             <span class="motto">go！</span>
           </router-link>
@@ -51,7 +52,7 @@
             </router-link>
           </template>
         </el-submenu>
-        <el-submenu index="0">
+        <el-submenu index="0" v-show="isAdmin">
           <template slot="title">
             <router-link class="nav-link contribute" :to="'/admin/index'">
               <span class="el-icon-user" style="color:orange"></span>
@@ -59,7 +60,7 @@
             </router-link>
           </template>
         </el-submenu>
-        <el-col :lg="5" :xl="5" class="hidden-xs-only">
+        <el-col :md="5" :lg="4" :xl="4" class="hidden-xs-only">
           <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="input" size="small"></el-input>
         </el-col>
       </el-menu>
@@ -69,6 +70,7 @@
 
 <script>
 import { getAllCategory } from "@/api/category";
+import { getRoles } from "@/utils/auth"; // 验权
 
 export default {
   name: "navbar",
@@ -77,6 +79,7 @@ export default {
       input: "",
       activeIndex: "1",
       categoryList: [],
+      isAdmin: false,
     };
   },
   methods: {
@@ -100,6 +103,9 @@ export default {
   },
   created() {
     this.getAllCategory();
+    if (getRoles()) {
+      this.isAdmin = true;
+    }
   },
   mounted() {
     document.addEventListener("scroll", this.onScroll);
@@ -110,14 +116,6 @@ export default {
 };
 </script>
 <style scoped>
-.header-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1999;
-  width: 100%;
-}
-
 .header-container.not-top #logo img {
   width: 24px;
   height: 24px;
@@ -210,11 +208,13 @@ body #Header {
 
 body #Header .title {
   color: #4f4f4f;
+  font-family: "华文行楷", "LingWai TC";
 }
 
 body #Header .motto {
   color: #409eff;
   font-size: 12px;
+  font-family: "华文行楷", "LingWai TC";
 }
 
 body #nav {
@@ -324,6 +324,28 @@ body #nav {
 }
 </style>
 <style>
+.body{
+    position: relative;
+    padding: 50px;
+    line-height: 30px;
+    width: 600px;
+    height: 1200px;
+    background-image: linear-gradient(to right top,#ffcc00 50%,#eee 50%);
+    background-size: 100% calc(100% - 100vh + 5px);
+    background-repeat: no-repeat;
+    z-index: 1; 
+}
+.body::after {
+    content: "";
+    position: fixed;
+    top: 5px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: white;
+    z-index: -1;
+    
+}
 .el-menu.el-menu--horizontal {
   border-bottom: none;
 }

@@ -82,7 +82,7 @@
       </div>
       <div class="markdown-edit">
         <el-form-item prop="title">
-          <div class="markdown" style="">
+          <div class="markdown" style>
             <div class="container">
               <!-- codeStyle="color-brewer monokai-sublime monokai" -->
               <mavon-editor
@@ -93,6 +93,7 @@
                 codeStyle="monokai"
                 placeholder="请输入..."
                 :ishljs="true"
+                :externalLink="externalLink"
               />
             </div>
           </div>
@@ -159,6 +160,20 @@ export default {
       dialogVisible: false,
       fileList: [],
       articleThumbnail: "",
+      externalLink: {
+        markdown_css: function () {
+          // 这是你的markdown css文件路径
+          return "/markdown/github-markdown.min.css";
+        },
+        hljs_js: function () {
+          // 这是你的hljs文件路径
+          return "/highlightjs/highlight.min.js";
+        },
+        hljs_css: function (css) {
+          // 这是你的代码高亮配色文件路径
+          return "/highlightjs/styles/" + css + ".min.css";
+        },
+      },
     };
   },
   methods: {
@@ -273,8 +288,7 @@ export default {
     handleChange(val) {
       console.log(val);
     },
-    handleRemove(file, fileList) {
-    },
+    handleRemove(file, fileList) {},
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;

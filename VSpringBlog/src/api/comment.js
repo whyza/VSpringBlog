@@ -9,10 +9,16 @@ export function addComment(url, data) {
   })
 }
 export function queryComment(url, params) {
-    return request({
-      url: url,
-      method: 'get',
-      params
-    })
-  }
-  
+  return request({
+    url: url,
+    method: 'get',
+    params
+  })
+}
+export function queryAllCommentsListPage(url, params) {
+  return request({
+    url: url,
+    method: 'get',
+    params
+  })
+}

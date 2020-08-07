@@ -5,23 +5,48 @@
       :key="article.id"
       :to="'/category/'+article.categoryName+'/'+article.id"
     >
-      <div class="article art-card art-card-bordered animated bounce">
+      <div class="article art-card art-card-bordered animated fadeInUp">
         <div class="art-body">
+          <span class="title-l"></span>
+
           <div class="art-row">
-            <el-col :xs="6" :sm="7" :md="7" :lg="8" :xl="6" style="overflow:hidden">
-              <el-image :src="article.articleThumbnail" class="art-img" style="width: 100%;">
-                <div slot="placeholder" class="image-slot">
-                  加载中
-                  <span class="dot">...</span>
-                </div>
-              </el-image>
+            <el-col
+              :xs="6"
+              :sm="7"
+              :md="7"
+              :lg="8"
+              :xl="6"
+              style="overflow:hidden;position:relative"
+            >
+              <span class="category">
+                <router-link
+                  class="gotocategory"
+                  :to="'/category/'+article.categoryId"
+                >{{article.categoryName}}</router-link>
+              </span>
+              <div class="block">
+                <el-image
+                  :src="article.articleThumbnail"
+                  class="art-img"
+                  style="width: 100%; height: 100%"
+                  fit="cover"
+                >
+                  <div slot="error" class="image-slot">
+                    <i class="el-icon-picture-outline"></i>
+                  </div>
+                  <div slot="placeholder" class="image-slot">
+                    加载中
+                    <span class="dot">...</span>
+                  </div>
+                </el-image>
+              </div>
             </el-col>
             <el-col :xs="15" :sm="17" :md="17" :lg="16" :xl="18">
               <div class="live-info">
                 <div class="live-title">{{article.title}}</div>
                 <div
                   class="live-desc"
-                >MQ(消MQ(消MQ(消息MQ()常见的应用场景解析MQ(消息队列)常见的应用场景解析MQ(消息队列)(消息队列)())))MQ(消息队列)</div>
+                >{{article.htmlText.substring(4,100)}}</div>
               </div>
             </el-col>
             <el-col class="hidden-xs-only" :sm="17" :md="17" :lg="16" :xl="18">
@@ -34,7 +59,7 @@
                 </div>
                 <div class="live-down-right">
                   <div class="live-name">
-                    <i class="fa fa-user"></i>
+                    <i class="el-icon-user"></i>
                     <span>{{article.userName}}</span>
                   </div>
                   <div class="live-time">
@@ -205,7 +230,7 @@ export default {
 .live-title {
   font-size: 16px;
   transition: all 0.6s;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .live-desc {
@@ -227,7 +252,7 @@ export default {
 
 .live-name {
   width: 147px;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .live-time {
@@ -251,11 +276,6 @@ export default {
 .art-img {
   overflow: hidden;
   padding-top: 5px;
-  transition: all 0.6s;
-}
-
-.article:hover .art-img {
-  transform: scale(1.05);
 }
 
 .article:hover .live-title {
@@ -266,5 +286,57 @@ export default {
 /* 分页 */
 .page {
   margin-top: 40px;
+}
+
+.title-l {
+  position: absolute;
+  background: #448ef6;
+  top: 4%;
+  left: -1px;
+  width: 5px;
+  height: 25px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  margin: 3% 0 0 0;
+}
+
+.post-list:hover .vodlist_top {
+  right: 0.35rem;
+}
+
+.category {
+  font-style: normal;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: absolute;
+  font-size: 0.3rem;
+  color: #fff;
+  top: 0.35rem;
+  right: -10rem;
+  z-index: 999;
+  transition: all 0.4s ease-in-out;
+}
+.category .gotocategory {
+  text-align: center;
+  width: auto;
+  height: 25px;
+  line-height: 25px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  background: #448ef6;
+}
+.article:hover .category {
+  z-index: 999;
+  right: 0;
+}
+</style>
+<style>
+.el-image__inner {
+  vertical-align: top;
+  height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 4px;
 }
 </style>

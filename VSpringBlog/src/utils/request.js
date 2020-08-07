@@ -2,24 +2,28 @@ import axios from 'axios'
 import store from '../store'
 import { getToken } from '@/utils/auth'
 import { showMessage } from "@/utils/showMessage"
-
-
+// import { showLoading, hideLoading } from "@/utils/loading"
 // 创建axios实例
 const service = axios.create({
   baseURL: process.env.BASE_API, // api 的 url
-  timeout: 1000000 // 请求超时时间
+  timeout: 50000 // 请求超时时间
 })
 
 // request拦截器
 service.interceptors.request.use(
+
   config => {
+    // showLoading()
+
     if (store.getters.token) {
       //请求携带自定义token
       config.headers['Access-Token'] = getToken()
     }
+    // hideLoading()
     return config
   },
   error => {
+    // hideLoading()
     Promise.resolve(error)
   }
 )
@@ -35,6 +39,7 @@ service.interceptors.response.use(
     }
   },
   error => {
+
     if (error && error.response) {
       switch (error.response.status) {
         case 400: error.message = '请求错误(400)'; break;

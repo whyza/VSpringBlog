@@ -1,7 +1,8 @@
 <template>
   <div class="content animated fadeIn">
     <div id="art-main">
-      <div class="art-title">{{articleDetail.title}}</div>
+      <loading v-if="isLoading"></loading>
+      <div class="art-title animated fadeInDown">{{articleDetail.title}}</div>
       <div class="user-des">
         <div class="user-rdes">
           <div class="otherdesc">
@@ -20,19 +21,22 @@
             </span>
             <span class="art-commentscount">
               <i class="el-icon-chat-line-round"></i>
-              <span>123</span>
+              <span>{{articleDetail.commentCounts}}</span>
             </span>
             <span class="art-commentscount" style="cursor: pointer;">
               <span @click="gotoedit()">
                 <i class="el-icon-edit">编辑</i>
               </span>
             </span>
+            <span class="art-commentscount">
+              <i class="fa fa-eye">{{articleDetail.pageView}}次阅读</i>
+            </span>
           </div>
         </div>
       </div>
       <el-divider></el-divider>
 
-      <div class="articlede-body">
+      <div class="articlede-body animated fadeInUp">
         <div class="markdown-body">
           <div ref="content" v-html="articleDetail.htmlText" v-viewer="{navbar:false,title:false}"></div>
         </div>
@@ -51,9 +55,7 @@
         <div class="item">
           <div class="title">
             <i class="el-icon-position"></i>
-
             <span>永久地址:</span>
-            <a href="#_0">asdaqsd</a>
             <span>http://localhost:8080/#/articleDetail/1</span>
           </div>
         </div>
@@ -70,34 +72,40 @@
 </template>
 <script>
 import { getArticleContentByArticleId } from "@/api/article";
-import { mavonEditor } from "mavon-editor";
-import "mavon-editor/dist/css/index.css";
-import { showLoading, hideLoading } from "@/utils/loading";
+import Loading from "@/views/front/common/Loading";
 
 export default {
   name: "articleDetail",
   components: {
-    mavonEditor,
+    Loading,
   },
   data() {
     return {
       articleDetail: "",
       codeStyle: "monokai-sublime",
       articlecontent: "",
+      isLoading: false,
     };
   },
   methods: {
     getContent() {
       let _this = this;
+      _this.isLoading = true;
       getArticleContentByArticleId("article/getArticleContentByArticleId", {
         articleId: this.$route.params.id,
-      }).then((res) => {
-        if (res.data === undefined || res.data === null) {
-          _this.$router.push("/404");
-        }
-        this.articleDetail = res.data;
-        this.articlecontent = res.data.mrdText;
-      });
+      })
+        .then((res) => {
+          if (res.data === undefined || res.data === null) {
+            _this.$router.push("/404");
+          }
+          this.articleDetail = res.data;
+          this.articlecontent = res.data.mrdText;
+          _this.isLoading = false;
+          document.title = this.articleDetail.title+"wl´s blog";
+        })
+        .catch((error) => {
+          // _this.isLoading = false;
+        });
     },
     show() {
       const viewer = this.$el.querySelector("img").$viewer;
@@ -113,6 +121,14 @@ export default {
   },
   created() {
     this.getContent();
+  },
+  watch: {
+    $route: {
+      handler() {
+        this.getContent();
+      },
+      deep: true,
+    },
   },
 };
 </script>
@@ -135,7 +151,6 @@ export default {
 .markdown-body pre {
   position: relative;
   padding: 28px 0 0 0 !important;
-  background: #21252b;
   border-radius: 5px !important;
   font: 16px/22px "Consolas" !important;
   line-height: 1.6 !important;
@@ -147,7 +162,10 @@ export default {
   padding-top: 30px;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
 }
-
+.markdown-body pre > code {
+  font-size: 14px !important;
+  font-weight: 500;
+}
 .markdown-body pre::before {
   content: " ";
   position: absolute;
@@ -173,7 +191,7 @@ export default {
 }
 
 #art-main .art-title {
-  padding-top: 30px;
+  padding-top: 25px;
   padding-bottom: 10px;
   text-align: center;
   color: #555;
@@ -217,6 +235,7 @@ export default {
 }
 
 .content {
+  min-height: 100px;
   margin-bottom: 10px;
 }
 

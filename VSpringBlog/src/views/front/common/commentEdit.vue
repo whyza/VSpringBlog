@@ -11,6 +11,7 @@
           :toolbarsFlag="true"
           :toolbars="toolbar"
           :placeholder="''+this.replyName"
+          :externalLink="externalLink"
         />
         <el-form
           :model="commentForm"
@@ -154,17 +155,16 @@ export default {
     return {
       loading: false,
       isShow: false, // 验证码模态框是否出现
-      codeStyle: "monokai", //主题
       content: "",
-      select: "HTTP",
+      select: "http",
       options: [
         {
-          value: "HTTP",
-          label: "HTTP",
+          value: "http",
+          label: "http",
         },
         {
-          value: "HTTPS",
-          label: "HTTPS",
+          value: "https",
+          label: "https",
         },
       ],
       toolbar: {
@@ -193,6 +193,20 @@ export default {
       },
       inputComment: "",
       userAvater: "",
+      externalLink: {
+        markdown_css: function () {
+          // 这是你的markdown css文件路径
+          return "/markdown/github-markdown.min.css";
+        },
+        hljs_js: function () {
+          // 这是你的hljs文件路径
+          return "/highlightjs/highlight.min.js";
+        },
+        hljs_css: function (css) {
+          // 这是你的代码高亮配色文件路径
+          return "/highlightjs/styles/" + css + ".min.css";
+        },
+      },
     };
   },
   methods: {
@@ -241,6 +255,8 @@ export default {
               _this.loading = false;
             });
         } else {
+          _this.loading = false;
+
           _this.$message.error("失败！");
           return false;
         }

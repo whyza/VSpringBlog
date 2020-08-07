@@ -9,7 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  // font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   background-image: url("../images/bg.png");
 }
 
@@ -68,65 +68,3 @@ a:hover {
     height: 0;
   }
 }
-
-//main-container全局样式
-// .app-main{
-//   min-height: 100%
-// }
-
-// .app-container {
-//   padding: 20px;
-// }
-// li{
-//   list-style: none;
-// }
-
-/**
- * transform-origin 设置旋转元素的基点位置
- * animation-name 设置动画名称
- * animation-duration 设置动画时间
- * animation-fill-mode 设置播放后的状态
- * animation-iteration-count 设置循环播放的次数
- * transition-timing-function: cubic-bezier 贝塞尔曲线效果，它有四个值，指在X轴与Y轴的两个曲线的点，第一个点：X1 Y1;第二个点：X2 Y2
- * transform: translate3d 设置动画Z轴位移几个元素，表示只在Z轴上移动
- *
- * 需要注意：transform: translate3d 不等于 transform: translateZ
- */
-// .reply-box-children:hover .header-img {
-//   animation-name: container; /*动画的名称*/
-//   transform-origin: center bottom; /*设置动画旋转元素的基点为：居中靠下*/
-//   cursor: pointer;
-//   animation-duration: 0.8s; /*动画时间*/
-//   animation-fill-mode: both; /*播放后的状态*/
-//   animation-iteration-count: infinite; /*动作循环的次数：infinite 无限循环*/
-//   animation-duration: 0.8s; /*动画时间*/
-// }
-
-// @keyframes container {
-//   0%,
-//   100% {
-//     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); /*贝塞尔曲线 ： X1 Y1 X2 Y2*/
-//     transform: translate3d(0, 0px, 0); /*设置只在Z轴上移动*/
-//   }
-//   23% {
-//     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); /*贝塞尔曲线 ： X1 Y1 X2 Y2*/
-//     transform: translate3d(0, -15px, 0);
-//   }
-//   40% {
-//     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); /*贝塞尔曲线 ： X1 Y1 X2 Y2*/
-//     transform: translate3d(0, -20px, 0);
-//   }
-//   50% {
-//     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); /*贝塞尔曲线 ： X1 Y1 X2 Y2*/
-//     transform: translate3d(0, 5px, 0);
-//   }
-//   70% {
-//     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); /*贝塞尔曲线 ： X1 Y1 X2 Y2*/
-//     transform: translate3d(0, -15px, 0);
-//   }
-//   90% {
-//     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); /*贝塞尔曲线 ： X1 Y1 X2 Y2*/
-
-//     transform: translate3d(0, 0px, 0);
-//   }
-// }

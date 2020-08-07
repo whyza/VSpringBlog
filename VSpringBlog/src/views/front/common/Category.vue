@@ -30,6 +30,7 @@ export default {
         }).then((res) => {
           if (res.data) {
             this.categoryName = res.data.categoryName;
+            document.title = res.data.categoryName+"-wl´s blog"
           }
         });
       }

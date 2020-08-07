@@ -31,12 +31,11 @@ import timelinePageIndex from '@/views/front/timelinePageIndex'
 **/
 export const constantRouterMap = [
 
-  { path: '/', redirect: '/index', hidden: true }
-  ,
   {
-    path: '/index',
-    component: index
-  },
+    path: '/', component: index
+    , hidden: true
+  }
+  ,
   {
     path: '/category/:id',
     name: 'category',
@@ -56,7 +55,7 @@ export const constantRouterMap = [
 ]
 //实例化vue的时候只挂载constantRouterMap
 export default new Router({
-  // mode: 'history', //后端支持可开
+  mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 });

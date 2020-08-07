@@ -6,7 +6,14 @@
           <el-avatar shape="square" :size="40" class="header-img" :src="item.userIcon"></el-avatar>
           <div class="author-info">
             <span class="author-name">
-              <a :href="item.userAddress" target="new_blank">{{item.id}}----{{item.userName}}</a>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="item.userAddress"
+                placement="right-start"
+              >
+                <a :href="item.userAddress" target="new_blank">{{item.id}}----{{item.userName}}</a>
+              </el-tooltip>
             </span>
             <span class="reply-time">{{item.createTime}}</span>
           </div>
@@ -27,11 +34,11 @@
                 :subfield="false"
                 :boxShadow="false"
                 defaultOpen="preview"
-                :codeStyle="codeStyle"
                 :ishljs="true"
                 v-model="item.content"
                 :toolbarsFlag="false"
                 :imageClick="$imageClick"
+                :externalLink="externalLink"
                 v-viewer="{navbar:false,title:false}"
               />
             </div>
@@ -52,7 +59,14 @@
             <el-avatar class="header-img" shape="square" :size="40" :src="reply.userIcon"></el-avatar>
             <div class="author-info">
               <span class="author-name">
-                <a :href="reply.userAddress" target="new_blank">{{reply.id}}----{{reply.userName}}</a>
+                <el-tooltip
+                  class="item"
+                  effect="dark"
+                  :content="reply.userAddress"
+                  placement="right-start"
+                >
+                  <a :href="reply.userAddress" target="new_blank">{{reply.id}}----{{reply.userName}}</a>
+                </el-tooltip>
               </span>
               <span class="reply-time">{{reply.createTime}}</span>
             </div>
@@ -67,17 +81,17 @@
             </div>
             <div class="comment-box reply-comment">
               <div>
-                <span>回复 {{reply.replyName}}:</span>
+                <span class="replyname">回复 {{reply.replyName}}:</span>
                 <mavon-editor
                   style="min-height: 25px"
                   :subfield="false"
                   :boxShadow="false"
                   defaultOpen="preview"
-                  :codeStyle="codeStyle"
                   :ishljs="true"
                   v-model="reply.content"
                   :toolbarsFlag="false"
                   :imageClick="$imageClick"
+                  :externalLink="externalLink"
                   v-viewer="{navbar:false,title:false}"
                 />
               </div>
@@ -111,12 +125,25 @@ export default {
   },
   data() {
     return {
-      codeStyle: "monokai",
       editorVisible: true,
       comments: [],
       parentId: "0",
       replyuserName: "",
       isReply: false,
+      externalLink: {
+        markdown_css: function () {
+          // 这是你的markdown css文件路径
+          return "/markdown/github-markdown.min.css";
+        },
+        hljs_js: function () {
+          // 这是你的hljs文件路径
+          return "/highlightjs/highlight.min.js";
+        },
+        hljs_css: function (css) {
+          // 这是你的代码高亮配色文件路径
+          return "/highlightjs/styles/" + css + ".min.css";
+        },
+      },
     };
   },
   methods: {
@@ -180,6 +207,13 @@ export default {
   display: inline-block;
   vertical-align: top;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.45);
+}
+.el-avatar > img {
+  transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
 }
 
 .reply-btn-box {
@@ -256,10 +290,10 @@ export default {
   line-height: 25px;
 }
 
-.comment-box span {
+.comment-box .replyname {
   background: rgba(184, 205, 255, 0.2);
   padding-left: 10px;
-  font-size: 13px;
+  font-size: 12px;
   color: #000;
   float: left;
 }
@@ -302,7 +336,7 @@ export default {
 }
 
 #comment .markdown-body {
-  line-height: 1.5;
+  line-height: 1.8;
   border: none !important;
 }
 
@@ -335,10 +369,20 @@ export default {
 }
 
 .reply-box-children {
+  transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
   padding: 8px 0;
 }
 
 .child-box .reply-box-children:not(:last-child) {
   border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+}
+
+.reply-box-children:hover .header-img {
+  animation: shake 1s infinite;
+  -webkit-animation: shake 1s infinite;
 }
 </style>

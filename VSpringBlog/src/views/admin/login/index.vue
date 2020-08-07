@@ -11,7 +11,7 @@
       auto-complete="on"
       label-position="left"
     >
-      <h3 class="title">Login-Admin</h3>
+      <h3 class="title">VspringBlog-Admin</h3>
       <div class="signup">sign up to continue</div>
       <el-form-item prop="userName">
         <span class="svg-container">
@@ -45,9 +45,12 @@
         <el-button
           :loading="loading"
           type="primary"
-          style="width:100%;"
+          style="width:45%;"
           @click.native.prevent="handleLogin"
         >Sign in</el-button>
+        <router-link to="/" class="bullshit__return-home">
+          <el-button type="danger" style="width:45%;float:right">返回首页</el-button>
+        </router-link>
       </el-form-item>
     </el-form>
   </div>

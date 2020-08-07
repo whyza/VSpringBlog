@@ -32,3 +32,10 @@ export function getArticleListByCategoryId(url, params) {
     params: params
   })
 }
+
+export function getRecommendArticle(url) {
+  return request({
+    url: url,
+    method: 'get',
+  })
+}

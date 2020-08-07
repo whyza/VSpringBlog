@@ -1,5 +1,5 @@
 <template>
-  <div class="notice">
+  <div class="notice animated fadeInDown">
     <el-carousel height="20px" direction="vertical" :autoplay="true">
       <el-carousel-item v-for="item in 3" :key="item">
         <div>

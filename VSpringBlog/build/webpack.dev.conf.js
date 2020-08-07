@@ -58,7 +58,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       template: 'index.html',
       inject: true,
       favicon: resolve('favicon.ico'),
-      title: 'vue-admin-template'
+      title: 'vspringblog'
     }),
     new CopyWebpackPlugin([{
       from: 'node_modules/mavon-editor/dist/highlightjs',

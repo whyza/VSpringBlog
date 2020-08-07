@@ -3,46 +3,54 @@
     <el-button @click="clearFilter">清除所有过滤器</el-button>
     <el-table
       ref="filterTable"
-      :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+      :data="commentsList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
       style="width: 100%"
     >
-      <el-table-column
-        label="日期"
-        width="180"
-        prop="date"
-        sortable
-        column-key="date"
-      >
+      <el-table-column label="日期" width="180" prop="date" sortable column-key="date">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
-          <span style="margin-left: 10px">{{ scope.row.date }}</span>
+          <span style="margin-left: 10px">{{ scope.row.createTime }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="姓名" width="180">
+      <el-table-column label="昵称" width="100">
         <template slot-scope="scope">
-          <el-popover trigger="hover" placement="top">
-            <p>姓名: {{ scope.row.name }}</p>
-            <p>住址: {{ scope.row.address }}</p>
-            <div slot="reference" class="name-wrapper">
-              <el-tag size="medium">{{ scope.row.name }}</el-tag>
-            </div>
-          </el-popover>
+          <div>{{scope.row.userName}}</div>
         </template>
       </el-table-column>
-      <el-table-column prop="address" label="地址" :formatter="formatter"></el-table-column>
+      <el-table-column label="头像" width="180">
+        <template slot-scope="scope">
+          <el-avatar shape="square" size="medium" :src="scope.row.userIcon"></el-avatar>
+        </template>
+      </el-table-column>
+      <el-table-column label="评论内容" width="180">
+        <template slot-scope="scope">
+          <div v-html="scope.row.content"></div>
+        </template>
+      </el-table-column>
+      <el-table-column label="个人主页" width="180">
+        <template slot-scope="scope">
+          <div v-html="scope.row.userAddress"></div>
+        </template>
+      </el-table-column>
       <el-table-column
         prop="tag"
-        label="标签"
-        width="100"
-        :filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"
+        label="状态"
+        width="180"
+        :filters="[{ text: '通过', value: 1 }, { text: '审核', value: 0 }]"
         :filter-method="filterTag"
         filter-placement="bottom-end"
       >
         <template slot-scope="scope">
-          <el-tag
-            :type="scope.row.tag === '家' ? 'primary' : 'success'"
-            disable-transitions
-          >{{scope.row.tag}}</el-tag>
+          <el-switch
+            v-model="scope.row.state"
+            :active-value="0"
+            :inactive-value="1"
+            active-text="通过"
+            inactive-text="审核"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            @change="changeSwitch(scope.row)"
+          ></el-switch>
         </template>
       </el-table-column>
       <el-table-column align="right">
@@ -55,63 +63,75 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      background
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pageConf.pageCode"
+      :page-size="pageConf.pageSize"
+      layout="total, prev, pager, next, jumper"
+      :total="pageConf.totalPage"
+      class="pageing"
+      style="margin-top:10px"
+    ></el-pagination>
   </div>
 </template>
 
 <script>
+import { queryAllCommentsListPage } from "@/api/comment";
 export default {
   data() {
     return {
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎1",
-          address: "上海市普陀区金沙江路 1518 弄",
-          tag: "家"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎2",
-          address: "上海市普陀区金沙江路 1517 弄",
-          tag: "公司"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎3",
-          address: "上海市普陀区金沙江路 1519 弄",
-          tag: "家"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎4",
-          address: "上海市普陀区金沙江路 1516 弄",
-          tag: "公司"
-        }
-      ],
-      search: ""
+      pageConf: {
+        pageCode: 1, //当前页
+        pageSize: 8, //每页显示的记录数
+        totalPage: 10, //总记录数
+      },
+      commentsList: [],
+      search: "",
     };
   },
   methods: {
     clearFilter() {
       this.$refs.filterTable.clearFilter();
     },
-    formatter(row, column) {
-      return row.address;
-    },
     filterTag(value, row) {
-      return row.tag === value;
-    },
-    filterHandler(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
+      console.log(value, row.state);
+      return row.state === value;
     },
     handleEdit(index, row) {
       console.log(index, row);
     },
     handleDelete(index, row) {
       console.log(index, row);
-    }
-  }
+    },
+    getAllComment() {
+      queryAllCommentsListPage("comments/queryAllCommentsListPage", {
+        current: this.pageConf.pageCode,
+        size: this.pageConf.pageSize,
+      }).then((res) => {
+        console.log(res);
+        this.commentsList = res.data.records;
+        this.pageConf.totalPage = res.data.total;
+      });
+    },
+    //pageSize改变时触发的函数
+    handleSizeChange(val) {
+      this.pageConf.pageSize = val;
+      this.getAllComment();
+    },
+    //当前页改变时触发的函数
+    handleCurrentChange(val) {
+      this.pageConf.pageCode = val;
+      this.getAllComment();
+    },
+    changeSwitch(data) {
+      console.log(data);
+    },
+  },
+  created() {
+    this.getAllComment();
+  },
 };
 </script>
 <style lang="scss" scoped>

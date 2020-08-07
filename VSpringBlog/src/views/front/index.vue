@@ -15,7 +15,7 @@
           <category />
           <!-- </el-row> -->
           <!-- ArticleList start -->
-          <articleList :isIndexPage=true />
+          <articleList :isIndexPage="true" />
         </el-col>
         <!--siderBar start  -->
         <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->
@@ -34,6 +34,9 @@ export default {
   name: "index",
   data() {
     return {};
+  },
+  mounted() {
+    document.title = "wl´s blog";
   },
 };
 </script>

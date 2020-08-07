@@ -54,105 +54,77 @@
                 <i style="color: #ff0000;" class="fa fa-bookmark" aria-hidden="true"></i>&nbsp;&nbsp;推荐阅读
               </p>
             </div>
-            <div class="recommend">
-              <div class="recommend-top">
-                <div class="arc-title">
-                  <a href>MQ(消息队列)常见的应用场景解析</a>
-                </div>
-              </div>
-              <div class="recommend-bottom">
-                <div class="arc-tags color-pink">docker</div>
-                <div class="arc-tags color-blue">大撒大撒</div>
-                <div class="arc-tags color-pink">a撒大苏打></div>
-              </div>
-              <div class="other">
-                <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
-                <i class="fa fa-eye"></i>
-                <i class="fa fa-pencil-square-o"></i>
-                <i class="fa fa-heart-o"></i>
-              </div>
-            </div>
 
-            <div class="recommend">
-              <div class="recommend-top">
-                <div class="arc-title">
-                  <a href>MQ(消息队列)常见的应用场景解析</a>
+            <div
+              class="recommend"
+              style="cursor:pointer"
+              v-for="(article,index) in recommendArticle"
+              :key="index"
+            >
+              <router-link :to="'/category/'+article.categoryName+'/'+article.id">
+                <el-avatar
+                  style="float:left;"
+                  shape="square"
+                  size="large"
+                  class="recommendImg"
+                  :src="article.articleThumbnail"
+                ></el-avatar>
+                <div class="recommend-top">
+                  <div class="arc-title">{{article.title}}</div>
                 </div>
-              </div>
-              <div class="recommend-bottom">
-                <div class="arc-tags color-pink">docker</div>
-                <div class="arc-tags color-pink">大撒大撒</div>
-                <div class="arc-tags color-blue">a撒大苏打></div>
-              </div>
-              <div class="other">
-                <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
-                <i class="fa fa-eye"></i>
-                <i class="fa fa-pencil-square-o"></i>
-                <i class="fa fa-heart-o"></i>
-              </div>
-            </div>
 
-            <div class="recommend">
-              <div class="recommend-top">
-                <div class="arc-title">
-                  <a href>MQ(消息队列)常见的应用场景解析</a>
+                <div class="recommend-bottom">
+                  <div class="other">
+                    <div
+                      class="arc-time"
+                      style="float:left;width:105px;"
+                    >{{article.creatTime|changeTime}}</div>
+                    <i class="fa fa-eye"></i>
+                    <router-link :to="'/article/editArticle/' + article.id">
+                      <i class="fa fa-pencil-square-o"></i>
+                    </router-link>
+                    <i class="fa fa-heart-o"></i>
+                  </div>
                 </div>
-              </div>
-              <div class="recommend-bottom">
-                <div class="arc-tags color-pink">docker</div>
-                <div class="arc-tags color-pink">大撒大撒</div>
-                <div class="arc-tags color-blue">a撒大苏打></div>
-              </div>
-              <div class="other">
-                <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
-                <i class="fa fa-eye"></i>
-                <i class="fa fa-pencil-square-o"></i>
-                <i class="fa fa-heart-o"></i>
-              </div>
-            </div>
-
-            <div class="recommend">
-              <div class="recommend-top">
-                <div class="arc-title">
-                  <a href>MQ(消息队列)常见的应用场景解析</a>
-                </div>
-              </div>
-              <div class="recommend-bottom">
-                <div class="arc-tags color-pink">docker</div>
-                <div class="arc-tags color-pink">大撒大撒</div>
-                <div class="arc-tags color-blue">a撒大苏打></div>
-              </div>
-              <div class="other">
-                <div class="arc-time" style="float:left;width:200px;">2020-07-17 16:56:00</div>
-                <i class="fa fa-eye"></i>
-                <i class="fa fa-pencil-square-o"></i>
-                <i class="fa fa-heart-o"></i>
-              </div>
+              </router-link>
             </div>
           </div>
         </div>
       </transition>
-
     </div>
   </el-col>
 </template>
 
 <script>
+import { getRecommendArticle } from "@/api/article";
 export default {
   name: "siderBar",
   data() {
-    return {};
+    return {
+      recommendArticle: [],
+      randcss: ["color-blue", "color-pink"],
+      randindex: 0,
+    };
   },
   methods: {
+    getRecommendArticle() {
+      getRecommendArticle("article/getRecommendArticle").then((res) => {
+        this.recommendArticle = res.data;
+      });
+    },
     toScoll() {
       let recommendRead = this.$refs.recommendRead;
       let scrollTop = document.documentElement.scrollTop;
       if (scrollTop >= 400) {
-        recommendRead.style.top = (scrollTop-60) + "px";
+        recommendRead.style.top = scrollTop - 60 + "px";
       } else if (scrollTop < 400) {
         recommendRead.style.top = "285px";
       }
     },
+  },
+  created() {
+    this.randindex = Math.floor(Math.random() * this.randcss.length);
+    this.getRecommendArticle();
   },
   mounted() {
     window.addEventListener("scroll", this.toScoll);
@@ -294,17 +266,24 @@ p {
 }
 /* 推荐阅读 */
 .recommend {
-  padding-bottom: 4px;
+  padding: 8px 8px 8px 15px;
+  margin-bottom: 5px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .recommend .arc-title {
-  text-align: justify;
   font-size: 12px;
   line-height: 23px;
   margin-bottom: 5px;
-  padding-top: 10px;
+  padding: 3px 3px 3px 8px;
+  height: 25px;
+  overflow: hidden;
+}
+.side-about .recommend .el-avatar--large {
+  width: 75px;
+  height: 50px;
 }
 .recommend .arc-title a {
+  padding-left: 5px;
   color: #696969;
   text-decoration: none;
 }
@@ -312,7 +291,7 @@ p {
   display: inline-block;
   height: 18px;
   line-height: 16px;
-  margin: 2px 4px 2px 0;
+  margin: 2px 4px 2px 5px;
   padding: 0 4px;
   border: 1px solid #e9eaec;
   border-radius: 3px;
@@ -333,25 +312,29 @@ p {
   border-color: rgb(81, 227, 247);
   color: rgb(255, 255, 255);
 }
-.recommend {
-  padding-left: 18px;
-}
 .recommend .recommend-bottom {
   margin-bottom: 5px;
 }
 .recommend .arc-time {
+  padding-left: 8px;
   font-size: 9px;
   line-height: 18px;
   font-weight: 200;
   color: #878d99;
 }
 .recommend .other i {
-  font-size: 9px;
+  font-size: 10px;
   padding-right: 6px;
   cursor: pointer;
 }
 #siderBar-main {
   padding-left: 13px;
   position: relative;
+}
+.recommendImg {
+  transition: all 0.2s ease-in-out;
+}
+.recommend:hover .recommendImg {
+  transform: scale(1.1);
 }
 </style>
