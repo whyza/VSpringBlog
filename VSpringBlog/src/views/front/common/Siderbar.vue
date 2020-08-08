@@ -61,7 +61,7 @@
               v-for="(article,index) in recommendArticle"
               :key="index"
             >
-              <router-link :to="'/category/'+article.categoryName+'/'+article.id">
+              <router-link :to="'/post/'+article.categoryName+'/'+article.id">
                 <el-avatar
                   style="float:left;"
                   shape="square"
@@ -91,14 +91,28 @@
           </div>
         </div>
       </transition>
+
+      <div v-show="this.$route.params.id" class="side-about toc" id="toc" ref="toc">
+        <div class="about-me">
+          <p>
+            <i style="color: #ff0000;" class="fa fa-bookmark" aria-hidden="true"></i>&nbsp;&nbsp;目录
+          </p>
+        </div>
+        <side-toc id="side-toc" style="margin-top: 15px;"></side-toc>
+      </div>
     </div>
   </el-col>
 </template>
 
 <script>
 import { getRecommendArticle } from "@/api/article";
+import SideToc from "@/views/front/common/sideToc";
+
 export default {
   name: "siderBar",
+  components: {
+    "side-toc": SideToc,
+  },
   data() {
     return {
       recommendArticle: [],
@@ -113,12 +127,12 @@ export default {
       });
     },
     toScoll() {
-      let recommendRead = this.$refs.recommendRead;
+      let toc = this.$refs.toc;
       let scrollTop = document.documentElement.scrollTop;
-      if (scrollTop >= 400) {
-        recommendRead.style.top = scrollTop - 60 + "px";
-      } else if (scrollTop < 400) {
-        recommendRead.style.top = "285px";
+      if (scrollTop >= 880) {
+        toc.classList.add("isFixed");
+      } else if (scrollTop < 880) {
+        toc.classList.remove("isFixed");
       }
     },
   },
@@ -135,17 +149,22 @@ export default {
 };
 </script>
 <style>
-</style>
-<style scoped>
 .recommendRead {
-  position: absolute;
-  transition: all 0.5s ease-in-out;
+  position: relative;
 }
+.toc {
+  z-index: 999;
+  top: 20px;
+  position: relative;
+  margin-bottom: 15px;
+}
+
 .isFixed {
   position: fixed;
-  background-color: #fff;
-  top: 44px;
+  top: 60px;
   z-index: 999;
+  width: 17.9%;
+  transition: all 0.3s ease-in-out;
 }
 .side-about {
   background: #fff;
@@ -336,5 +355,20 @@ p {
 }
 .recommend:hover .recommendImg {
   transform: scale(1.1);
+}
+</style>
+<style lang="stylus" rel="stylesheet/stylus">
+.panel {
+  position: relative;
+  background: #fff;
+  border-left: 1px solid #eee;
+
+  h4 {
+    font-size: 18px;
+    padding: 13px 20px 13px;
+    line-height: 18px;
+    text-align: left;
+    border-left: 5px solid #409EFF;
+  }
 }
 </style>

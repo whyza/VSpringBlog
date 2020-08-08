@@ -2,6 +2,8 @@ import axios from 'axios'
 import store from '../store'
 import { getToken } from '@/utils/auth'
 import { showMessage } from "@/utils/showMessage"
+import { encode, decode } from '@/utils/crypt';
+
 // import { showLoading, hideLoading } from "@/utils/loading"
 // 创建axios实例
 const service = axios.create({
@@ -14,7 +16,6 @@ service.interceptors.request.use(
 
   config => {
     // showLoading()
-
     if (store.getters.token) {
       //请求携带自定义token
       config.headers['Access-Token'] = getToken()
@@ -31,7 +32,7 @@ service.interceptors.request.use(
 // response 拦截器
 service.interceptors.response.use(
   response => {
-    const res = response.data
+    const res = response.data 
     if (res.code === 500 || res.code === 400) {
       showMessage(true, "error", res.msg, 1000);
     } else {

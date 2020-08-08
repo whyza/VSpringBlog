@@ -306,7 +306,13 @@ body #nav {
 
   #nav li .nav-link.contribute {
     font-size: 13px;
-    margin-left: 6px;
+    margin-left: 0px;
+  }
+  .categoryName{
+    font-size: 12px;
+  }
+  .el-submenu [class^=el-icon-]{
+    font-size: 12px !important;
   }
 }
 
@@ -371,8 +377,8 @@ body #nav {
 }
 
 .el-menu--horizontal > .el-submenu .el-submenu__title {
-  height: 55px !important;
-  line-height: 40px !important;
+  height: 55px;
+  line-height: 40px;
   transition: all 0.5s ease-out;
 }
 

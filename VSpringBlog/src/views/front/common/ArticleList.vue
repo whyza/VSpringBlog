@@ -3,7 +3,7 @@
     <router-link
       v-for="article in articleList"
       :key="article.id"
-      :to="'/category/'+article.categoryName+'/'+article.id"
+      :to="'/post/'+article.categoryName+'/'+article.id"
     >
       <div class="article art-card art-card-bordered animated fadeInUp">
         <div class="art-body">
@@ -21,7 +21,7 @@
               <span class="category">
                 <router-link
                   class="gotocategory"
-                  :to="'/category/'+article.categoryId"
+                  :to="'/post/'+article.categoryId"
                 >{{article.categoryName}}</router-link>
               </span>
               <div class="block">
@@ -134,7 +134,7 @@ export default {
       getArticleListByCategoryId("article/getArticleListByCategoryId", {
         current: this.pageConf.pageCode,
         size: this.pageConf.pageSize,
-        categoryId: this.$route.params.id,
+        categoryId: this.$route.params.categoryid,
       }).then((res) => {
         this.articleList = res.data.records;
         this.pageConf.totalPage = res.data.total;
@@ -163,7 +163,7 @@ export default {
   watch: {
     $route: {
       handler() {
-        this.id = this.$route.params.id;
+        this.id = this.$route.params.categoryid;
         this.changeArticleListDetail();
       },
       deep: true,

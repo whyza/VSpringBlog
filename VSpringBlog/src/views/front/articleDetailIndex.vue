@@ -16,9 +16,8 @@
           <comment />
         </el-col>
         <!--siderBar start  -->
-        <!-- <el-col :md="7" :lg="6" :xl="1" class="hidden-sm-and-down"> -->
         <siderBar />
-        <!-- </el-col> -->
+
       </div>
     </div>
     <!-- main-wrapper -->
@@ -27,10 +26,11 @@
   </div>
 </template>
 <script>
+
 export default {
   name: "articleDetailIndex",
 };
 </script>
 
-<style>
+<style scoped>
 </style>

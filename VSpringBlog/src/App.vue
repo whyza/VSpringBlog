@@ -106,14 +106,24 @@ body {
     margin: 15px auto 0;
     margin-bottom: 50px;
   }
+  .isFixed{
+    width:23.8% !important
+  }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
   .home-content {
     margin: 15px auto 0;
     margin-bottom: 50px;
   }
+  .el-menu--horizontal > .el-submenu .el-submenu__title {
+    height: 40px !important;
+    line-height: 40px !important;
+  }
 }
 @media screen and (min-width: 500px) and (max-width: 768px) {
+  .el-image__inner {
+    height: 90px !important;
+  }
   .home-content {
     margin: 15px auto 0;
     margin-bottom: 50px;
@@ -196,10 +206,14 @@ body {
   .child-box {
     border: none;
   }
+  .el-image__inner {
+    height: 65px !important;
+  }
 }
 
 .home-content {
   /* width: auto; */
   min-height: calc(100vh - 108px);
+  position: relative;
 }
 </style>

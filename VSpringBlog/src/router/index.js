@@ -37,11 +37,11 @@ export const constantRouterMap = [
   }
   ,
   {
-    path: '/category/:id',
+    path: '/category/:categoryid',
     name: 'category',
     component: articleCategoryIndex
   }, {
-    path: '/category/:category/:id',
+    path: '/post/:category/:id',
     name: 'detail',
     component: articleDetailIndex
   }, {
@@ -163,5 +163,22 @@ export const asyncRouterMap = [
       meta: { title: 'druid监控', icon: 'index' }
     }]
   },
-
+  {
+    path: '/other',
+    component: Layout,
+    // redirect: '/dataStatistics',
+    name: 'other',
+    meta: { title: '其他设置', icon: 'index', roles: ['admin'] },
+    children: [{
+      path: 'noticemanage',
+      name: 'noticemanage',
+      component: () => import('@/views/admin/other/noticemanage'),
+      meta: { title: '公告', icon: 'index' }
+    },{
+      path: 'carouselmanage',
+      name: 'carouselmanage',
+      component: () => import('@/views/admin/other/carouselmanage'),
+      meta: { title: '幻灯片', icon: 'index' }
+    }]
+  },
 ]

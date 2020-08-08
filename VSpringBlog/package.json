@@ -17,6 +17,7 @@
     "@antv/g2": "^4.0.12",
     "animate.css": "^3.7.0",
     "axios": "0.18.0",
+    "crypto-js": "^4.0.0",
     "element-ui": "^2.8.2",
     "font-awesome": "^4.7.0",
     "github-markdown-css": "^4.0.0",

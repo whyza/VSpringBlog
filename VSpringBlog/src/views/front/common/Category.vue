@@ -22,11 +22,11 @@ export default {
   methods: {
     getCategoryName() {
       if (
-        this.$route.params.id !== undefined &&
-        this.$route.params.id !== null
+        this.$route.params.categoryid !== undefined &&
+        this.$route.params.categoryid !== null
       ) {
         getCategoryNameById("/category/getCategoryNameById", {
-          categoryId: this.$route.params.id,
+          categoryId: this.$route.params.categoryid,
         }).then((res) => {
           if (res.data) {
             this.categoryName = res.data.categoryName;
@@ -42,7 +42,7 @@ export default {
   watch: {
     $route: {
       handler() {
-        this.id = this.$route.params.id;
+        this.id = this.$route.params.categoryid;
         this.getCategoryName();
       },
       deep: true,

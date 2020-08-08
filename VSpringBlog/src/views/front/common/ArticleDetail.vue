@@ -38,9 +38,14 @@
 
       <div class="articlede-body animated fadeInUp">
         <div class="markdown-body">
-          <div ref="content" v-html="articleDetail.htmlText" v-viewer="{navbar:false,title:false}"></div>
+          <div
+            id="article-main-page"
+            ref="content"
+            v-html="articleDetail.htmlText"
+            v-viewer="{navbar:false,title:false}"
+          ></div>
         </div>
-        <div class="arttags"></div>
+        <!-- <div class="arttags"></div> -->
       </div>
       <el-divider></el-divider>
 
@@ -73,6 +78,8 @@
 <script>
 import { getArticleContentByArticleId } from "@/api/article";
 import Loading from "@/views/front/common/Loading";
+import TOC from "@/utils/MarkdownToc";
+import TocScrollSpy from "@/utils/TocScrollSpy";
 
 export default {
   name: "articleDetail",
@@ -88,6 +95,19 @@ export default {
     };
   },
   methods: {
+    addCodeLineNumber() {
+      // 添加行号
+      let blocks = this.$refs.content.querySelectorAll("pre .hljs code");
+      blocks.forEach((block) => {
+        // 去前后空格并添加行号
+        block.innerHTML =
+          "<ol><li>" +
+          block.innerHTML
+            .replace(/(^\s*)|(\s*$)/g, "")
+            .replace(/\n/g, "\n</li><li>") +
+          "\n</li></ol>";
+      });
+    },
     getContent() {
       let _this = this;
       _this.isLoading = true;
@@ -101,7 +121,11 @@ export default {
           this.articleDetail = res.data;
           this.articlecontent = res.data.mrdText;
           _this.isLoading = false;
-          document.title = this.articleDetail.title+"wl´s blog";
+          this.$nextTick(function () {
+            this.addCodeLineNumber();
+            this.refreshDiectory();
+            document.title = this.articleDetail.title + "wl´s blog";
+          });
         })
         .catch((error) => {
           // _this.isLoading = false;
@@ -118,6 +142,19 @@ export default {
       localStorage.setItem("path", this.$route.path);
       this.$router.push("/article/editArticle/" + this.articleDetail.id);
     },
+    refreshDiectory() {
+      new TOC("article-main-page", {
+        level: 5,
+        top: 200,
+        class: "list",
+        targetId: "side-toc",
+      });
+      new TocScrollSpy("article-main-page", "side-toc", {
+        spayLevel: 5,
+        articleMarginTop: 0,
+      });
+    },
+
   },
   created() {
     this.getContent();
@@ -179,6 +216,10 @@ export default {
   -webkit-box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
   box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
   z-index: 2;
+}
+.markdown-body .hljs ol li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
 }
 </style>
 <style scoped>
