@@ -12,7 +12,7 @@
                 :content="item.userAddress"
                 placement="right-start"
               >
-                <a :href="item.userAddress" target="new_blank">{{item.id}}----{{item.userName}}</a>
+                <a :href="item.userAddress" target="new_blank">{{item.userName}}</a>
               </el-tooltip>
             </span>
             <span class="reply-time">{{item.createTime}}</span>
@@ -65,7 +65,7 @@
                   :content="reply.userAddress"
                   placement="right-start"
                 >
-                  <a :href="reply.userAddress" target="new_blank">{{reply.id}}----{{reply.userName}}</a>
+                  <a :href="reply.userAddress" target="new_blank">{{reply.userName}}</a>
                 </el-tooltip>
               </span>
               <span class="reply-time">{{reply.createTime}}</span>
@@ -81,7 +81,7 @@
             </div>
             <div class="comment-box reply-comment">
               <div>
-                <span class="replyname">回复 {{reply.replyName}}:</span>
+                <span class="replyname" style="color:orange">@ {{reply.replyName}}:</span>
                 <mavon-editor
                   style="min-height: 25px"
                   :subfield="false"
@@ -276,8 +276,8 @@ export default {
 }
 
 .child-box {
-  margin: 0 20px;
-  padding: 15px;
+  margin: 0 35px;
+  padding: 0 15px 0px 15px;
   border: 1px dashed rgba(0, 0, 0, 0.2);
 }
 
@@ -291,16 +291,15 @@ export default {
 }
 
 .comment-box .replyname {
-  background: rgba(184, 205, 255, 0.2);
   padding-left: 10px;
   font-size: 12px;
   color: #000;
   float: left;
 }
 
-.reply-box .v-note-wrapper {
+/* .reply-box .v-note-wrapper {
   background: rgba(184, 205, 255, 0.1);
-}
+} */
 
 #comment
   .comment-box
@@ -362,11 +361,11 @@ export default {
 }
 
 /* v-show-content scroll-style scroll-style-border-radius */
-.comment-box.reply-comment
+/* .comment-box.reply-comment
   .v-note-panel
   .v-show-content.scroll-style.scroll-style-border-radius {
   background: rgba(184, 205, 255, 0.1) !important;
-}
+} */
 
 .reply-box-children {
   transition: all 0.5s ease-out;

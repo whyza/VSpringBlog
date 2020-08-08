@@ -106,8 +106,8 @@ body {
     margin: 15px auto 0;
     margin-bottom: 50px;
   }
-  .isFixed{
-    width:23.8% !important
+  .isFixed {
+    width: 23.8% !important;
   }
 }
 @media screen and (min-width: 768px) and (max-width: 992px) {
@@ -201,10 +201,23 @@ body {
   }
   .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
   .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
-    padding: 8px !important;
+    padding: 2px !important;
+  }
+  .v-note-wrapper{
+    min-width: 100%;
   }
   .child-box {
-    border: none;
+    margin: 0 15px !important;
+    padding: 8px !important;
+  }
+  .comment-box .replyname{
+    padding-left: 0px !important;
+  }
+  .comment-box.reply-comment{
+    line-height: 20px !important;
+  }
+  .comment-box{
+    margin: 0 40px !important
   }
   .el-image__inner {
     height: 65px !important;

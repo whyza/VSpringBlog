@@ -30,7 +30,7 @@
               ></el-input>
             </el-form-item>
           </el-col>
-          <el-col :xs="15" :sm="15" :md="5" :lg="5" :xl="3" class="email">
+          <el-col :xs="15" :sm="15" :md="5" :lg="5" :xl="3" class="commentqq">
             <el-form-item prop="qq" style="margin-left:10px;margin-right:10px">
               <el-input
                 v-model="commentForm.qq"
@@ -264,7 +264,7 @@ export default {
     },
     setUserAvater() {
       this.userAvater =
-        "http://q1.qlogo.cn/g?b=qq&nk=" + this.commentForm.qq + "&s=40";
+        "https://q1.qlogo.cn/g?b=qq&nk=" + this.commentForm.qq + "&s=40";
     },
     cancelReply() {
       this.$emit("changereplyuserName", "");
@@ -280,7 +280,7 @@ export default {
       this.commentForm.userAddress = remenberForm.userAddress;
       this.commentForm.qq = remenberForm.qq;
       this.userAvater =
-        "http://q1.qlogo.cn/g?b=qq&nk=" + this.commentForm.qq + "&s=40";
+        "https://q1.qlogo.cn/g?b=qq&nk=" + this.commentForm.qq + "&s=40";
     }
   },
   watch: {
@@ -308,11 +308,17 @@ export default {
     width: 20%;
   }
 
-  .email {
-    width: 29%;
+  .commentqq {
+    width: 24%;
   }
 
   .userAddress {
+    width: 33%;
+  }
+}
+@media screen and (min-width: 993px) and (max-width: 1200px) {
+  .userAddress {
+    padding-left: 0px !important;
     width: 33%;
   }
 }
