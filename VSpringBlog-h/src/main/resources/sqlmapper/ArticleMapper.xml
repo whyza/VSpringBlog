@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whyzaa.vspringblog.mapper.ArticleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.whyzaa.vspringblog.entity.SysArticle">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="mrd_text" property="mrdText"/>
+        <result column="html_text" property="htmlText"/>
+        <result column="uid" property="uid"/>
+        <result column="creat_time" property="creatTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="state" property="state"/>
+        <result column="page_view" property="pageView"/>
+    </resultMap>
+
+    <resultMap id="SysArticleVoResultMap" type="com.whyzaa.vspringblog.entity.SysArticle">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="mrd_text" property="mrdText"/>
+        <result column="html_text" property="htmlText"/>
+        <result column="uid" property="uid"/>
+        <result column="creat_time" property="creatTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="state" property="state"/>
+        <result column="page_view" property="pageView"/>
+        <result column="user_name" property="userName"/>
+        <result column="article_thumbnail" property="articleThumbnail"/>
+        <result column="category_name" property="categoryName"/>
+        <collection property="SysTagsList" javaType="java.util.ArrayList" ofType="com.whyzaa.vspringblog.entity.SysTags"
+                    column="id" select="getArticleTagsByid">
+            <id column="id" property="id"/>
+            <result column="article_id" property="articleId"/>
+            <result column="tags_name" property="tagsName"/>
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, mrd_text, html_text, uid, creat_time, update_time, state, page_view
+    </sql>
+    <select id="getArticleList" resultMap="SysArticleVoResultMap">
+        SELECT s.*,su.user_name,sca.category_name
+        FROM sys_article as s
+        LEFT JOIN sys_user as su ON su.id = s.uid
+        LEFT JOIN sys_category as sca ON sca.id = s.category_id
+        ORDER BY s.id DESC
+    </select>
+    <select id="getArticleTagsByid" resultType="com.whyzaa.vspringblog.entity.SysTags">
+		SELECT
+			s.id,
+			s.article_id,
+			s.tags_name
+		FROM sys_tags s
+		WHERE article_id = #{articleId}
+	</select>
+    <select id="getArticleListByCategoryId" resultMap="SysArticleVoResultMap">
+        SELECT s.*,su.user_name,sca.category_name
+        FROM sys_article as s
+        LEFT JOIN sys_user as su ON su.id = s.uid
+		LEFT JOIN sys_category as sca ON sca.id = s.category_id
+        WHERE s.category_id = #{categoryId}
+        ORDER BY s.id ASC
+    </select>
+
+    <select id="getArticleContentById" resultMap="SysArticleVoResultMap">
+        SELECT s.*,su.user_name,sca.category_name
+        FROM sys_article as s
+        LEFT JOIN sys_user as su ON su.id = s.uid
+        LEFT JOIN sys_category as sca ON sca.id = s.category_id
+        WHERE s.id = #{articleId}
+    </select>
+
+</mapper>

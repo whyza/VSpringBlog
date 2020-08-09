@@ -183,6 +183,7 @@ export default {
 
 .markdown-body img {
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 
 .markdown-body pre {

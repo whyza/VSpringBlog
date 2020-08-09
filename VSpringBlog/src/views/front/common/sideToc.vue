@@ -49,7 +49,6 @@ export default {
   },
 };
 </script>
-
 <style lang="scss" rel="stylesheet/stylus">
 .side-toc {
   position: relative;
@@ -72,7 +71,7 @@ export default {
       left: -1px;
       right: 0;
       background-color: #f9f9f9;
-      border-left: 2px solid #409EFF;
+      border-left: 2px solid #409eff;
       z-index: 1;
       transition: all 0.2s ease-out;
     }
@@ -83,7 +82,7 @@ export default {
       z-index: 2;
 
       > li {
-        list-style-type: square;
+        list-style-type: upper-roman;
         line-height: 2.2em;
 
         > a {
@@ -95,10 +94,9 @@ export default {
           padding: 0;
           font-size: 16px;
           color: #363636;
-
           &.active {
             font-weight: 800;
-            color: #409EFF;
+            color: #409eff;
           }
         }
 
