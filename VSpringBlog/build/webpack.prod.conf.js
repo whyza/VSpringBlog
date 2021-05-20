@@ -11,6 +11,8 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
+const Renderer = PrerenderSpaPlugin.PuppeteerRenderer
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -38,6 +40,25 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[name]_[chunkhash:8].js')
   },
   plugins: [
+    new PrerenderSpaPlugin({
+      // 生成文件的路径，也可以与webpakc打包的一致。
+      // 这个目录只能有一级，如果目录层次大于一级，在生成的时候不会有任何错误提示，在预渲染的时候只会卡着不动。
+      staticDir: path.join(__dirname, '../dist'),
+      // List of routes to prerender
+      // 对应自己的路由文件，比如index有参数，就需要写成 /index/param1。
+      routes: ['/', '/post/category', '/category/categoryid', '/timeline'],
+      // 这个很重要，如果没有配置这段，也不会进行预编译
+      renderer: new Renderer({
+        inject: {
+          foo: 'bar'
+        },
+        headless: false,
+        //2019年5月24日14:32:32更新。window10下edge浏览器如果开启了预渲染。则需要增加captureAfterTime
+        captureAfterTime: 20000, //在一定时间后再捕获页面信息，使得页面数据信息加载完成
+        // 在 main.js 中 document.dispatchEvent(new Event('render-event'))，两者的事件名称要对应上。
+        renderAfterDocumentEvent: 'render-event'
+      })
+    }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
@@ -91,13 +112,11 @@ const webpackConfig = merge(baseWebpackConfig, {
     // keep module.id stable when vender modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // copy custom static assets
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, '../static'),
-        to: config.build.assetsSubDirectory,
-        ignore: ['.*']
-      }
-    ])
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, '../static'),
+      to: config.build.assetsSubDirectory,
+      ignore: ['.*']
+    }])
   ],
   optimization: {
     splitChunks: {

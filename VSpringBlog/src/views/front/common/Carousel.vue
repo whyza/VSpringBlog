@@ -28,7 +28,7 @@ export default {
     getImgUrl() {
       this.imgurl = [
         "https://imgs.iazuresky.com/52a27da1-cb25-4ab3-a69d-741f12c27648014258596b34b8a8012193a3c64c7a.jpg@2o.jpg",
-        "https://imgs.iazuresky.com/541253c0-cb18-4839-9b7e-d5b73feb15691570711489953315.jpg",
+        // "https://imgs.iazuresky.com/541253c0-cb18-4839-9b7e-d5b73feb15691570711489953315.jpg",
       ];
       this.imgLoad();
     },

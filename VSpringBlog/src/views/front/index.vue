@@ -38,6 +38,19 @@ export default {
   mounted() {
     document.title = "wl´s blog";
   },
+  metaInfo: {
+    title: "首页",
+    meta: [
+      {
+        name: "keywords",
+        content: "首页,Vue,Spring,SpringBoot,JAVA,Mysql",
+      },
+      {
+        name: "description",
+        content: "wl´s blog",
+      },
+    ],
+  },
 };
 </script>
 

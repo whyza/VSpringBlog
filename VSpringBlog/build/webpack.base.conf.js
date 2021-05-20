@@ -23,7 +23,7 @@ const createLintingRule = () => ({
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: ['babel-polyfill','./src/main.js']//babel-polyfill会仿效一个完整的 ES2015+ 环境，并意图运行于一个应用中而不是一个库/工具。
   },
   output: {
     path: config.build.assetsRoot,

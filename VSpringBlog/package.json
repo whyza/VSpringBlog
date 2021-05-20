@@ -28,6 +28,8 @@
     "mysql": "^2.16.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
+    "prerender-spa-plugin": "^3.4.0",
+    "puppeteer": "^9.1.1",
     "stompjs": "^2.3.3",
     "text-loader": "^0.0.1",
     "timeago.js": "^4.0.2",

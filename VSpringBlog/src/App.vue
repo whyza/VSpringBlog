@@ -39,20 +39,6 @@ export default {
     };
   },
   methods: {},
-  mounted() {
-    if (window.performance.navigation.type == 1) {
-    } else {
-      this.$notify({
-        type: "success",
-        title: "Hello 欢迎：游客",
-        message:
-          "你可以点击<a href='#/a' style='color:#409EFF'>这里</a>留言给我！",
-        position: "bottom-right",
-        duration: "6000",
-        dangerouslyUseHTMLString: true,
-      });
-    }
-  },
 };
 </script>
 <style>

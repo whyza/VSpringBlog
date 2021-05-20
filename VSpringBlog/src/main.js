@@ -20,18 +20,24 @@ import component from '@/views/front/registerComp/component.js'
 import VueParticles from 'vue-particles'
 import animated from 'animate.css'
 import Viewer from 'v-viewer'
-import { format } from 'timeago.js';
+import {
+  format
+} from 'timeago.js';
 //定义全局的过滤器 "changeTime":改变时间为几周前
-Vue.filter('changeTime', function(dateStr) {
-    return format(dateStr, 'zh_CN');
+Vue.filter('changeTime', function (dateStr) {
+  return format(dateStr, 'zh_CN');
 })
 import outline from 'vue-outline'
+import MetaInfo from 'vue-meta-info'
+Vue.use(MetaInfo)
 Vue.use(outline)
 Vue.use(Viewer)
 Vue.use(animated)
 Vue.use(VueParticles)
 Vue.use(component)
-Vue.use(ElementUI, { locale })
+Vue.use(ElementUI, {
+  locale
+})
 Vue.config.productionTip = false
 
 new Vue({
@@ -39,5 +45,13 @@ new Vue({
   router,
   store,
   i18n,
-  render: h => h(App)
+  components: {
+    App
+  },
+  template: '<App/>',
+  render: h => h(App),
+  /* 这句非常重要，否则预渲染将不会启动 */
+  mounted() {
+    document.dispatchEvent(new Event('render-event'))
+  }
 })
