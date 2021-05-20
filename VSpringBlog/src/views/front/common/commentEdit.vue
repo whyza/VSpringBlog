@@ -237,10 +237,6 @@ export default {
                 document
                   .getElementById("scollto" + _this.parentId)
                   .scrollIntoView({ block: "start", behavior: "smooth" });
-              } else {
-                document
-                  .getElementById("comment")
-                  .scrollIntoView({ block: "start", behavior: "smooth" });
               }
               if (localStorage.getItem("userInfo")) {
                 localStorage.removeItem("userInfo");
