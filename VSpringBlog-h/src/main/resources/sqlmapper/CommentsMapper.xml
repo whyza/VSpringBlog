@@ -28,7 +28,7 @@
     WHERE c.article_id = #{articleId}
     AND c.parent_id=0
     AND c.state = 0
-    ORDER BY c.id DESC
+    ORDER BY c.create_time DESC
     </select>
 
     <select id="findCommentsByParentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
