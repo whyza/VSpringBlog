@@ -9,9 +9,9 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/views/admin/layout/Layout'
 import index from '@/views/front/index'
-import articleDetailIndex from '@/views/front/articleDetailIndex'
-import articleCategoryIndex from '@/views/front/articleCategoryIndex'
-import timelinePageIndex from '@/views/front/timelinePageIndex'
+import articleDetail from '@/views/front/articleDetail'
+import articleCategory from '@/views/front/articleCategory'
+import timeline from '@/views/front/timeline'
 
 
 // import UserManager from '@/views/admin/userManager/UserManager'
@@ -39,15 +39,15 @@ export const constantRouterMap = [
   {
     path: '/category/:categoryid',
     name: 'category',
-    component: articleCategoryIndex
+    component: articleCategory
   }, {
     path: '/post/:category/:id',
     name: 'detail',
-    component: articleDetailIndex
+    component: articleDetail
   }, {
     path: '/timeline',
     name: 'timeline',
-    component: timelinePageIndex
+    component: timeline
   }, { path: '/login', component: () => import('@/views/admin/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/admin/404'), hidden: true },
   { path: '*', component: () => import('@/views/admin/404'), hidden: true },
