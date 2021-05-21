@@ -39,6 +39,12 @@ Vue.use(ElementUI, {
   locale
 })
 Vue.config.productionTip = false
+import Moment from 'moment'
+
+// 定义全局时间戳过滤器
+Vue.filter('formatDate', function (value) {
+  return Moment(value).format('YYYY-MM-DD HH:mm:ss')
+})
 
 new Vue({
   el: '#app',

@@ -18,7 +18,7 @@
             </span>
             <span class="art-time">
               <i class="el-icon-date"></i>
-              <span>{{ articleDetail.creatTime }}</span>
+              <span>{{ articleDetail.creatTime | formatDate }}</span>
             </span>
             <span class="art-commentscount">
               <i class="el-icon-chat-line-round"></i>
