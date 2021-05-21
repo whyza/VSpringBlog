@@ -8,7 +8,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/views/admin/layout/Layout'
-import index from '@/views/front/index'
+import index from '@/views/front/home'
 import articleDetail from '@/views/front/articleDetail'
 import articleCategory from '@/views/front/articleCategory'
 import timeline from '@/views/front/timeline'

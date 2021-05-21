@@ -2,34 +2,35 @@
   <div class="content animated fadeIn">
     <div id="art-main">
       <loading v-if="isLoading"></loading>
-      <div class="art-title animated fadeInDown">{{articleDetail.title}}</div>
+      <div class="art-title animated fadeInDown">{{ articleDetail.title }}</div>
       <div class="user-des">
         <div class="user-rdes">
           <div class="otherdesc">
-            <span class="username">author:{{articleDetail.userName}}</span>
+            <span class="username">author:{{ articleDetail.userName }}</span>
             <span class="art-tag">
               <i class="el-icon-collection-tag"></i>
               <span
                 class="tagspan"
                 v-for="tags in articleDetail.sysTagsList"
                 :key="tags.id"
-              >{{tags.tagsName}}</span>
+                >{{ tags.tagsName }}</span
+              >
             </span>
             <span class="art-time">
               <i class="el-icon-date"></i>
-              <span>{{articleDetail.creatTime}}</span>
+              <span>{{ articleDetail.creatTime }}</span>
             </span>
             <span class="art-commentscount">
               <i class="el-icon-chat-line-round"></i>
-              <span>{{articleDetail.commentCounts}}</span>
+              <span>{{ articleDetail.commentCounts }}</span>
             </span>
-            <span class="art-commentscount" style="cursor: pointer;">
+            <span class="art-commentscount" style="cursor: pointer">
               <span @click="gotoedit()">
                 <i class="el-icon-edit">编辑</i>
               </span>
             </span>
             <span class="art-commentscount">
-              <i class="fa fa-eye">{{articleDetail.pageView}}次阅读</i>
+              <i class="fa fa-eye">{{ articleDetail.pageView }}次阅读</i>
             </span>
           </div>
         </div>
@@ -42,7 +43,7 @@
             id="article-main-page"
             ref="content"
             v-html="articleDetail.htmlText"
-            v-viewer="{navbar:false,title:false}"
+            v-viewer="{ navbar: false, title: false }"
           ></div>
         </div>
         <!-- <div class="arttags"></div> -->
@@ -54,21 +55,19 @@
           <div class="title">
             <i class="el-icon-s-flag"></i>
             <span>相关标签:</span>
-            <span v-for="tags in articleDetail.sysTagsList" :key="tags.id">{{tags.tagsName}}</span>
-          </div>
-        </div>
-        <div class="item">
-          <div class="title">
-            <i class="el-icon-position"></i>
-            <span>永久地址:</span>
-            <span>http://localhost:8080/#/articleDetail/1</span>
+            <span v-for="tags in articleDetail.sysTagsList" :key="tags.id">{{
+              tags.tagsName
+            }}</span>
           </div>
         </div>
         <div class="item">
           <div class="title">
             <i class="el-icon-share"></i>
             <span>版权声明:</span>
-            <span>自由转载-署名-非商业性使用 | Creative Commons BY-NC 3.0 CN 著作权归作者所有。</span>
+            <span
+              >自由转载-署名-非商业性使用 | Creative Commons BY-NC 3.0 CN
+              著作权归作者所有。</span
+            >
           </div>
         </div>
       </div>
@@ -113,23 +112,19 @@ export default {
       _this.isLoading = true;
       getArticleContentByArticleId("article/getArticleContentByArticleId", {
         articleId: this.$route.params.id,
-      })
-        .then((res) => {
-          if (res.data === undefined || res.data === null) {
-            _this.$router.push("/404");
-          }
-          this.articleDetail = res.data;
-          this.articlecontent = res.data.mrdText;
-          _this.isLoading = false;
-          this.$nextTick(function () {
-            this.addCodeLineNumber();
-            this.refreshDiectory();
-            document.title = this.articleDetail.title + "wl´s blog";
-          });
-        })
-        .catch((error) => {
-          // _this.isLoading = false;
+      }).then((res) => {
+        if (res.data === undefined || res.data === null) {
+          _this.$router.push("/404");
+        }
+        this.articleDetail = res.data;
+        this.articlecontent = res.data.mrdText;
+        _this.isLoading = false;
+        this.$nextTick(function () {
+          this.addCodeLineNumber();
+          this.refreshDiectory();
+          document.title = this.articleDetail.title + "wl´s blog";
         });
+      });
     },
     show() {
       const viewer = this.$el.querySelector("img").$viewer;
@@ -154,7 +149,6 @@ export default {
         articleMarginTop: 0,
       });
     },
-
   },
   created() {
     this.getContent();
